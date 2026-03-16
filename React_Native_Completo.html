@@ -1,0 +1,3347 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Native - Guia Completo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1a2639 0%, #2d3e50 100%);
+            line-height: 1.7;
+            color: #1a2639;
+            padding: 1.5rem;
+            min-height: 100vh;
+        }
+
+        .apostila {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2.5rem;
+            box-shadow: 0 30px 60px rgba(0, 20, 30, 0.3);
+            overflow: hidden;
+            padding: 2.2rem 2.5rem;
+        }
+
+        h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: 2.4rem;
+            font-weight: 600;
+            margin-top: 2.5rem;
+            border-left: 0.5rem solid #0eafdb;
+            padding-left: 1.3rem;
+        }
+
+        h3 {
+            font-size: 1.9rem;
+            font-weight: 600;
+            color: #0b3b4b;
+            margin: 1.5rem 0 0.8rem;
+        }
+
+        h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e4a5f;
+            margin-bottom: 0.5rem;
+        }
+
+        p,
+        li,
+        .card,
+        pre,
+        blockquote {
+            font-size: 1.3rem;
+        }
+
+        /* Hero Unificado */
+        .hero {
+            background: linear-gradient(145deg, #0eafdb 0%, #667eea 50%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2.5rem;
+            border-radius: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .hero .sub {
+            font-size: 1.8rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .hero .stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .hero .stat {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.8rem 1.5rem;
+            border-radius: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .hero .stat strong {
+            font-size: 1.4rem;
+        }
+
+        /* Part Headers */
+        .part-header {
+            background: linear-gradient(135deg, #1e2b3a 0%, #2d3e50 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            margin: 3rem 0 2rem;
+            text-align: center;
+        }
+
+        .part-header.fundamentos {
+            border-left: 8px solid #0eafdb;
+        }
+
+        .part-header.avancado {
+            border-left: 8px solid #667eea;
+        }
+
+        .part-header.exercicios {
+            border-left: 8px solid #28a745;
+        }
+
+        .part-header h2 {
+            border: none;
+            padding: 0;
+            margin: 0;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .part-header p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.5rem;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 1rem 0;
+            z-index: 100;
+            border-bottom: 2px solid #e0e0e0;
+            margin: 0 -2.5rem 2rem;
+            padding-left: 2.5rem;
+            padding-right: 2.5rem;
+        }
+
+        .progress-bar-inner {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .progress-bar-inner::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .progress-bar-inner::-webkit-scrollbar-thumb {
+            background: #0eafdb;
+            border-radius: 4px;
+        }
+
+        .progress-step {
+            flex-shrink: 0;
+            background: #e0e7ec;
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #1a2639;
+        }
+
+        .progress-step:hover,
+        .progress-step.active {
+            background: #0eafdb;
+            color: white;
+        }
+
+        /* Pilares Grid */
+        .pilares-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2rem 0 1rem;
+        }
+
+        .pilar-card {
+            flex: 1 1 240px;
+            background: #ffffff;
+            border: 3px solid #0eafdb;
+            border-radius: 2rem;
+            padding: 2rem 1.2rem;
+            text-align: center;
+            box-shadow: 0 10px 0 #0b7a9c;
+            transition: transform 0.2s ease;
+        }
+
+        .pilar-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pilar-card h3 {
+            font-size: 2rem;
+            margin: 0.8rem 0;
+        }
+
+        .pilar-card .emoji-big {
+            font-size: 3.8rem;
+        }
+
+        /* Code Block */
+        .code-block {
+            background: #1e2b3a;
+            color: #e4f0fb;
+            padding: 1.8rem;
+            border-radius: 1.5rem;
+            font-size: 1.2rem;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+            margin: 1.8rem 0;
+            border-left: 8px solid #0eafdb;
+            box-shadow: 0 6px 0 #0c3b4b;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: 0.5rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.2rem 0.8rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            color: #0eafdb;
+        }
+
+        .code-block code {
+            font-family: inherit;
+            color: #b7e4ff;
+        }
+
+        .code-block .keyword {
+            color: #ff79c6;
+        }
+
+        .code-block .string {
+            color: #50fa7b;
+        }
+
+        .code-block .function {
+            color: #8be9fd;
+        }
+
+        .code-block .comment {
+            color: #6272a4;
+        }
+
+        .code-block .number {
+            color: #bd93f9;
+        }
+
+        .code-terminal {
+            background: #0d1117;
+            color: #58a6ff;
+            border-left-color: #238636;
+        }
+
+        .code-terminal::before {
+            content: 'TERMINAL';
+            background: #238636;
+            color: white;
+        }
+
+        /* Destaque */
+        .destaque {
+            background: #ebf8ff;
+            border-left: 10px solid #0eafdb;
+            padding: 2rem 2rem;
+            border-radius: 2rem;
+            margin: 2rem 0;
+            font-size: 1.4rem;
+            font-weight: 500;
+        }
+
+        .destaque strong {
+            color: #005e80;
+        }
+
+        .destaque-warning {
+            background: #fef3cd;
+            border-left-color: #ffc107;
+        }
+
+        .destaque-warning strong {
+            color: #856404;
+        }
+
+        .destaque-success {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+
+        .destaque-success strong {
+            color: #155724;
+        }
+
+        .destaque-danger {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+
+        .destaque-danger strong {
+            color: #721c24;
+        }
+
+        .destaque-info {
+            background: #e2e3e5;
+            border-left-color: #6c757d;
+        }
+
+        /* Advanced styles */
+        .destaque.avancado {
+            border-left-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .destaque.avancado strong {
+            color: #667eea;
+        }
+
+        ul,
+        ol {
+            padding-left: 2.5rem;
+            margin: 1.5rem 0;
+        }
+
+        li {
+            margin: 0.9rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.3rem;
+            margin: 2rem 0;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            border: 2px solid #cbd5e1;
+            padding: 1rem 1.2rem;
+            text-align: left;
+        }
+
+        th {
+            background: linear-gradient(135deg, #0eafdb 0%, #1d5e7a 100%);
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        tr:hover {
+            background: #e6f4f9;
+        }
+
+        /* Botao Pratica */
+        .botao-pratica {
+            display: inline-block;
+            background: linear-gradient(135deg, #1e2b3a 0%, #2d3e50 100%);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            font-size: 1.4rem;
+            margin: 1.5rem 0;
+            border: 2px solid #0eafdb;
+            transition: 0.2s ease;
+            box-shadow: 0 5px 0 #0b3b4b;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .botao-pratica:hover {
+            background: linear-gradient(135deg, #0eafdb 0%, #1d5e7a 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 7px 0 #0b3b4b;
+            color: white;
+        }
+
+        /* Interativo */
+        .interativo-linha {
+            background: #fef9e4;
+            padding: 1.8rem;
+            border-radius: 2rem;
+            border: 3px dashed #ffb347;
+            margin: 2rem 0;
+        }
+
+        hr {
+            border: 2px solid #d0e3e8;
+            margin: 3rem 0;
+        }
+
+        footer {
+            margin-top: 4rem;
+            text-align: center;
+            font-size: 1.3rem;
+            color: #3f5e6b;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #e6f4f9 100%);
+            border-radius: 2rem;
+        }
+
+        /* Accordion */
+        .accordion {
+            background: #f8fafc;
+            border-radius: 1.5rem;
+            margin: 1rem 0;
+            overflow: hidden;
+            border: 2px solid #e0e7ec;
+        }
+
+        .accordion-header {
+            padding: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            transition: background 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background: #e6f4f9;
+        }
+
+        .accordion-content {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+
+        .accordion.open .accordion-content {
+            max-height: 3000px;
+            padding: 1.5rem;
+        }
+
+        .accordion.open .accordion-header {
+            background: #e6f4f9;
+            border-bottom: 2px solid #e0e7ec;
+        }
+
+        .accordion-icon {
+            font-size: 1.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion.open .accordion-icon {
+            transform: rotate(45deg);
+        }
+
+        /* Diagram */
+        .diagram {
+            background: linear-gradient(135deg, #1e2b3a 0%, #2d3e50 100%);
+            color: #e4f0fb;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            overflow-x: auto;
+            margin: 2rem 0;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .diagram-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #e6f4f9 100%);
+            border-radius: 1.5rem;
+            padding: 1.8rem;
+            border: 2px solid #d0e3e8;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(14, 175, 219, 0.15);
+        }
+
+        .info-card h4 {
+            margin-top: 0;
+            color: #0eafdb;
+        }
+
+        /* Checklist */
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 1rem;
+            margin: 0.5rem 0;
+            border-left: 4px solid #0eafdb;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-top: 0.2rem;
+            accent-color: #0eafdb;
+        }
+
+        .checklist-item.checked {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+
+        /* Nav Section */
+        .nav-section {
+            background: linear-gradient(135deg, #0eafdb 0%, #1d5e7a 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .nav-section h3 {
+            color: white;
+            margin-top: 0;
+        }
+
+        .nav-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-section li {
+            margin: 0.5rem 0;
+        }
+
+        .nav-section a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: background 0.2s ease;
+        }
+
+        .nav-section a:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Exercise Box */
+        .exercise-box {
+            background: linear-gradient(135deg, #e6f4f9 0%, #d0e8f0 100%);
+            border: 3px solid #0eafdb;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .exercise-box h4 {
+            color: #0b3b4b;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .exercise-number {
+            background: #0eafdb;
+            color: white;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* Tip Box */
+        .tip-box {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .tip-box .icon {
+            font-size: 2rem;
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .warning-box .icon {
+            font-size: 2rem;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .comparison-item {
+            padding: 1.5rem;
+            border-radius: 1rem;
+        }
+
+        .comparison-old {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+        }
+
+        .comparison-new {
+            background: #d4edda;
+            border: 2px solid #28a745;
+        }
+
+        .comparison-item h4 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        /* Flowchart */
+        .flowchart {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+            margin: 2rem 0;
+        }
+
+        .flow-step {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 1rem;
+            font-weight: 600;
+            text-align: center;
+            min-width: 250px;
+        }
+
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+
+        /* Project Card */
+        .project-card {
+            background: white;
+            border: 3px solid #667eea;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 10px 0 #4a5bb8;
+        }
+
+        .project-card h4 {
+            color: #667eea;
+            margin-top: 0;
+            font-size: 1.6rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .project-tag {
+            background: #e6f4f9;
+            color: #1a2639;
+            padding: 0.3rem 0.8rem;
+            border-radius: 1rem;
+            font-size: 1rem;
+        }
+
+        /* Exercise Card (from file 3) */
+        .exercise-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #e6f9ed 100%);
+            border: 3px solid #28a745;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .exercise-card::before {
+            content: attr(data-number);
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .exercise-card h4 {
+            margin-top: 0.5rem;
+            color: #155724;
+        }
+
+        .exercise-card .difficulty {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .difficulty-easy {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .difficulty-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .difficulty-hard {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Solution Box */
+        .solution-box {
+            background: #1e2b3a;
+            border-radius: 1.5rem;
+            margin-top: 1.5rem;
+            overflow: hidden;
+        }
+
+        .solution-header {
+            background: #28a745;
+            color: white;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .solution-content {
+            padding: 1.5rem;
+            display: none;
+        }
+
+        .solution-content.show {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            body {
+                padding: 0.5rem;
+            }
+
+            .apostila {
+                padding: 1.5rem;
+                border-radius: 1.5rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.6rem;
+            }
+
+            .hero {
+                padding: 2rem;
+            }
+
+            .pilares-grid {
+                flex-direction: column;
+            }
+
+            .hero .stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .progress-bar {
+                margin: 0 -1.5rem 1.5rem;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+
+            .comparison-table {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .code-block {
+                font-size: 1rem;
+                padding: 1.2rem;
+            }
+
+            table {
+                font-size: 1.1rem;
+            }
+
+            th,
+            td {
+                padding: 0.7rem;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .apostila {
+                box-shadow: none;
+                border-radius: 0;
+            }
+
+            .progress-bar {
+                display: none;
+            }
+
+            .accordion-content {
+                max-height: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="apostila">
+
+        <!-- HERO CAPA UNIFICADO -->
+        <div class="hero">
+            <h1>React Native - Guia Completo</h1>
+            <div class="sub">Do zero ao profissional: fundamentos, arquitetura avancada, performance, animacoes e
+                exercicios praticos</div>
+            <div class="stats">
+                <div class="stat"><strong>15</strong> capitulos</div>
+                <div class="stat"><strong>7</strong> exercicios</div>
+                <div class="stat"><strong>5</strong> projetos guiados</div>
+                <div class="stat"><strong>100%</strong> pratico</div>
+            </div>
+        </div>
+
+        <!-- BARRA DE PROGRESSO COMPLETA -->
+        <nav class="progress-bar">
+            <div class="progress-bar-inner">
+                <a href="#ambiente" class="progress-step active">1. Ambiente</a>
+                <a href="#fundamentos" class="progress-step">2. Fundamentos</a>
+                <a href="#componentes" class="progress-step">3. Componentes</a>
+                <a href="#estado" class="progress-step">4. Estado</a>
+                <a href="#formulario" class="progress-step">5. Formularios</a>
+                <a href="#layout" class="progress-step">6. Layout</a>
+                <a href="#navegacao" class="progress-step">7. Navegacao</a>
+                <a href="#hooks" class="progress-step">8. Hooks</a>
+                <a href="#api" class="progress-step">9. APIs</a>
+                <a href="#nova-arquitetura" class="progress-step">10. Nova Arquitetura</a>
+                <a href="#performance" class="progress-step">11. Performance</a>
+                <a href="#animacoes" class="progress-step">12. Animacoes</a>
+                <a href="#projetos-profissionais" class="progress-step">13. Projetos</a>
+                <a href="#organizacao" class="progress-step">14. Organizacao</a>
+                <a href="#exercicios" class="progress-step">15. Exercicios</a>
+            </div>
+        </nav>
+
+        <!-- ===================================================== -->
+        <!-- PARTE 1: FUNDAMENTOS -->
+        <!-- ===================================================== -->
+        <div class="part-header fundamentos">
+            <h2>PARTE 1 - FUNDAMENTOS</h2>
+            <p>Do ambiente ao consumo de APIs - base solida para desenvolvimento mobile</p>
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- SECAO 1: AMBIENTE DE DESENVOLVIMENTO -->
+        <!-- ===================================================== -->
+        <section id="ambiente">
+            <h2>1. Configuracao do Ambiente de Desenvolvimento</h2>
+
+            <p class="destaque">
+                Antes de comecar a programar, precisamos preparar seu computador.
+                Este guia cobre a instalacao completa para Windows, macOS e Linux.
+            </p>
+
+            <h3>Requisitos do Sistema</h3>
+            <table>
+                <tr>
+                    <th>Recurso</th>
+                    <th>Minimo</th>
+                    <th>Recomendado</th>
+                </tr>
+                <tr>
+                    <td>Memoria RAM</td>
+                    <td>8 GB</td>
+                    <td>16 GB</td>
+                </tr>
+                <tr>
+                    <td>Espaco em Disco</td>
+                    <td>15 GB</td>
+                    <td>30 GB</td>
+                </tr>
+                <tr>
+                    <td>Node.js</td>
+                    <td>v18 LTS</td>
+                    <td>v20 LTS</td>
+                </tr>
+            </table>
+
+            <h3>Passo 1: Instalar Node.js</h3>
+            <p>O Node.js e o runtime JavaScript que executa nosso codigo. Baixe a versao LTS (Long Term Support) no site
+                oficial.</p>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Windows - Instalacao do Node.js</span>
+                    <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>1.</strong> Acesse <a href="https://nodejs.org" target="_blank">https://nodejs.org</a>
+                    </p>
+                    <p><strong>2.</strong> Baixe a versao LTS (v20.x ou superior)</p>
+                    <p><strong>3.</strong> Execute o instalador e siga as opcoes padrao</p>
+                    <p><strong>4.</strong> Verifique a instalacao:</p>
+                    <div class="code-block code-terminal">
+                        node --version
+                        npm --version
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>macOS - Instalacao do Node.js</span>
+                    <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Opcao 1 - Homebrew (recomendado):</strong></p>
+                    <div class="code-block code-terminal">
+                        # Instalar Homebrew (se nao tiver)
+                        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+                        # Instalar Node.js
+                        brew install node
+
+                        # Verificar
+                        node --version
+                    </div>
+                    <p><strong>Opcao 2 - Instalador grafico:</strong> Baixe em <a
+                            href="https://nodejs.org">nodejs.org</a></p>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Linux (Ubuntu/Debian) - Instalacao do Node.js</span>
+                    <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="code-block code-terminal">
+                        # Atualizar repositorios
+                        sudo apt update
+
+                        # Instalar Node.js via NodeSource (v20)
+                        curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+                        sudo apt install -y nodejs
+
+                        # Verificar instalacao
+                        node --version
+                        npm --version
+                    </div>
+                </div>
+            </div>
+
+            <h3>Passo 2: Instalar Expo CLI</h3>
+            <p>O Expo e a forma mais rapida de comecar com React Native. Ele elimina a necessidade de configurar Android
+                Studio e Xcode no inicio.</p>
+
+            <div class="code-block code-terminal">
+                # Instalar Expo CLI globalmente
+                npm install -g expo-cli
+
+                # Verificar instalacao
+                expo --version
+
+                # Criar primeiro projeto
+                npx create-expo-app meu-primeiro-app --template blank
+
+                # Entrar na pasta e iniciar
+                cd meu-primeiro-app
+                npx expo start
+            </div>
+
+            <div class="tip-box">
+                <span class="icon">💡</span>
+                <div>
+                    <strong>Dica importante:</strong> Com o Expo, voce pode testar seu app diretamente no celular usando
+                    o app <strong>Expo Go</strong> (disponivel na App Store e Google Play). Basta escanear o QR Code que
+                    aparece no terminal.
+                </div>
+            </div>
+
+            <h3>Passo 3: Configurar Editor de Codigo</h3>
+            <p>Recomendamos o <strong>VS Code</strong> com as seguintes extensoes:</p>
+
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4>ES7+ React/Redux/React-Native snippets</h4>
+                    <p>Snippets uteis como rnc (React Native Component), rnstyle (StyleSheet), etc.</p>
+                </div>
+                <div class="info-card">
+                    <h4>React Native Tools</h4>
+                    <p>Debugging e intellisense para React Native.</p>
+                </div>
+                <div class="info-card">
+                    <h4>Prettier</h4>
+                    <p>Formatacao automatica de codigo.</p>
+                </div>
+                <div class="info-card">
+                    <h4>ESLint</h4>
+                    <p>Analise de codigo e deteccao de erros.</p>
+                </div>
+            </div>
+
+            <div class="destaque destaque-success">
+                <strong>Ambiente pronto!</strong> Se voce conseguiu criar e rodar o projeto com Expo, ja pode comecar a
+                programar. O ambiente completo com Android Studio/Xcode e necessario apenas para codigo nativo.
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- ===================================================== -->
+        <!-- SECAO 2: FUNDAMENTOS -->
+        <!-- ===================================================== -->
+        <section id="fundamentos">
+            <h2>2. A Revolucao da Bridge (Ponte)</h2>
+
+            <p class="destaque">
+                Antes do React Native: Android (Java/Kotlin) e iOS (Swift/Objective-C) eram mundos separados.
+                Duas equipes, codigo duplicado, custos dobrados.<br><br>
+                React Native: Escreva em JavaScript, renderize componentes <strong>nativos de verdade</strong> via
+                ponte.
+            </p>
+
+            <div class="diagram">
+                +-------------------+ +-------------------+ +-------------------+
+                | JAVASCRIPT | | BRIDGE | | NATIVE SIDE |
+                | (React Code) |----->| (JSON/JSI) |----->| (iOS/Android) |
+                +-------------------+ +-------------------+ +-------------------+
+                | | |
+                v v v
+                +-------------------+ +-------------------+ +-------------------+
+                | Hermes/JSC | | Serializacao | | Native Modules |
+                | JS Engine | | Mensagens JSON | | UI Components |
+                +-------------------+ +-------------------+ +-------------------+
+            </div>
+
+            <h3>Como Funciona a Bridge</h3>
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4>1. JavaScript Thread</h4>
+                    <p>Seu codigo React roda aqui. Componentes, hooks, logica de negocio.</p>
+                </div>
+                <div class="info-card">
+                    <h4>2. Bridge (Ponte)</h4>
+                    <p>Canal assincrono que serializa mensagens JSON entre JS e nativo.</p>
+                </div>
+                <div class="info-card">
+                    <h4>3. Native Thread</h4>
+                    <p>Executa codigo nativo real: renderiza views, acessa APIs do sistema.</p>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <span class="icon">⚠️</span>
+                <div>
+                    <strong>Implicacao importante:</strong> Operacoes pesadas no JavaScript (loops grandes, filtros
+                    complexos) podem travar a UI pois compartilham a mesma thread. Use Web Workers ou mova para nativo
+                    quando necessario.
+                </div>
+            </div>
+
+            <h3>React Native vs Hibrido vs Nativo</h3>
+            <table>
+                <tr>
+                    <th>Caracteristica</th>
+                    <th>Nativo</th>
+                    <th>Hibrido (Ionic)</th>
+                    <th>React Native</th>
+                </tr>
+                <tr>
+                    <td>Performance</td>
+                    <td>Excelente</td>
+                    <td>Limitada</td>
+                    <td>Boa a Excelente</td>
+                </tr>
+                <tr>
+                    <td>Componentes UI</td>
+                    <td>Nativos</td>
+                    <td>WebView</td>
+                    <td>Nativos</td>
+                </tr>
+                <tr>
+                    <td>Base de Codigo</td>
+                    <td>Separada</td>
+                    <td>Unica</td>
+                    <td>Unica</td>
+                </tr>
+                <tr>
+                    <td>Curva de Aprendizado</td>
+                    <td>Alta</td>
+                    <td>Baixa</td>
+                    <td>Media</td>
+                </tr>
+            </table>
+
+            <!-- TL;DR Fundamentos -->
+            <div class="destaque destaque-success">
+                <strong>TL;DR - Fundamentos:</strong>
+                <ol>
+                    <li>Tudo e componente</li>
+                    <li>A interface depende de dados</li>
+                    <li>Mudou o estado? A tela muda</li>
+                    <li>Dados descem via Props</li>
+                    <li>Interacao vive no State</li>
+                </ol>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- ===================================================== -->
+        <!-- SECAO 3: COMPONENTES -->
+        <!-- ===================================================== -->
+        <section id="componentes">
+            <h2>3. Os 3 Pilares do React Native</h2>
+
+            <div class="pilares-grid">
+                <div class="pilar-card">
+                    <div class="emoji-big">📦</div>
+                    <h3>Componentes</h3>
+                    <p>Funcoes que retornam interface. Ex: <code>&lt;Botao /&gt;</code>, <code>&lt;Card /&gt;</code>.
+                        Letra MAIUSCULA obrigatoria.</p>
+                </div>
+                <div class="pilar-card">
+                    <div class="emoji-big">⬇️</div>
+                    <h3>Props</h3>
+                    <p>Parametros que o <strong>pai envia para o filho</strong>. Imutaveis (quem recebe so le).</p>
+                </div>
+                <div class="pilar-card">
+                    <div class="emoji-big">🧠</div>
+                    <h3>State</h3>
+                    <p>"Memoria" do componente. Quando muda, a tela re-renderiza automaticamente.</p>
+                </div>
+            </div>
+
+            <h3>Componentes Essenciais do React Native</h3>
+            <table>
+                <tr>
+                    <th>Componente</th>
+                    <th>Analogia Web</th>
+                    <th>Funcao Principal</th>
+                </tr>
+                <tr>
+                    <td><code>&lt;View&gt;</code></td>
+                    <td><code>&lt;div&gt;</code></td>
+                    <td>Container para layout (obrigatorio ter um pai)</td>
+                </tr>
+                <tr>
+                    <td><code>&lt;Text&gt;</code></td>
+                    <td><code>&lt;p&gt;</code>, <code>&lt;span&gt;</code></td>
+                    <td>Exibir texto (obrigatorio para qualquer texto)</td>
+                </tr>
+                <tr>
+                    <td><code>&lt;TextInput&gt;</code></td>
+                    <td><code>&lt;input&gt;</code></td>
+                    <td>Campo de entrada de texto</td>
+                </tr>
+                <tr>
+                    <td><code>&lt;TouchableOpacity&gt;</code></td>
+                    <td><code>&lt;button&gt;</code></td>
+                    <td>Area clicavel com feedback visual</td>
+                </tr>
+                <tr>
+                    <td><code>&lt;Image&gt;</code></td>
+                    <td><code>&lt;img&gt;</code></td>
+                    <td>Exibir imagens (locais ou remotas)</td>
+                </tr>
+                <tr>
+                    <td><code>&lt;ScrollView&gt;</code></td>
+                    <td>overflow: scroll</td>
+                    <td>Container com rolagem</td>
+                </tr>
+                <tr>
+                    <td><code>&lt;FlatList&gt;</code></td>
+                    <td>-</td>
+                    <td>Lista performatica com virtualizacao</td>
+                </tr>
+            </table>
+
+            <h3>Seu Primeiro Componente</h3>
+            <div class="code-block" data-lang="JavaScript">
+                <code><span class="comment">// App.js - Estrutura basica de um componente</span>
+<span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> { View, Text, StyleSheet } <span class="keyword">from</span> <span class="string">'react-native'</span>;
+
+<span class="keyword">export default function</span> <span class="function">App</span>() {
+  <span class="keyword">return</span> (
+    &lt;<span class="function">View</span> style={styles.container}&gt;
+      &lt;<span class="function">Text</span> style={styles.title}&gt;
+        Ola, React Native!
+      &lt;/<span class="function">Text</span>&gt;
+    &lt;/<span class="function">View</span>&gt;
+  );
+}
+
+<span class="keyword">const</span> styles = StyleSheet.<span class="function">create</span>({
+  container: {
+    flex: <span class="number">1</span>,
+    justifyContent: <span class="string">'center'</span>,
+    alignItems: <span class="string">'center'</span>,
+    backgroundColor: <span class="string">'#f5f5f5'</span>,
+  },
+  title: {
+    fontSize: <span class="number">28</span>,
+    fontWeight: <span class="string">'bold'</span>,
+    color: <span class="string">'#1a2639'</span>,
+  },
+});</code>
+            </div>
+
+            <div class="destaque">
+                <strong>Regra de Ouro:</strong> Todo componente React Native deve ter <strong>um unico elemento
+                    pai</strong>. Use <code>&lt;View&gt;</code> para envolver multiplos elementos.
+            </div>
+
+            <h3>Arvore de Componentes</h3>
+            <p>Um aplicativo React e uma arvore de componentes onde tudo comeca no App - o componente principal. Todos
+                os outros componentes estao dentro dele, direta ou indiretamente.</p>
+
+            <div class="diagram">
+                App (Raiz)
+                ├── Header
+                ├── Lista
+                │ ├── Item 1
+                │ ├── Item 2
+                │ └── Item 3
+                └── Botao
+            </div>
+
+            <p><strong>Relacao Pai e Filho:</strong></p>
+            <ul>
+                <li>App e pai de Header, Lista e Botao</li>
+                <li>Lista e pai de Item</li>
+                <li>Item e filho de Lista</li>
+            </ul>
+
+            <p>Em React, essa hierarquia e importante porque:</p>
+            <ul>
+                <li>O pai pode enviar dados para o filho (via props)</li>
+                <li>O filho nao altera o pai diretamente</li>
+            </ul>
+
+            <h3>Regras do JSX</h3>
+            <div class="destaque destaque-warning">
+                <strong>3 Regras Fundamentais:</strong>
+                <ol>
+                    <li>Tudo precisa estar dentro de um elemento pai</li>
+                    <li>Codigo JS vai entre chaves { }</li>
+                    <li>Componentes comecam com letra MAIUSCULA</li>
+                </ol>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- ===================================================== -->
+        <!-- SECAO 4: ESTADO (STATE) -->
+        <!-- ===================================================== -->
+        <section id="estado">
+            <h2>4. Estado: A Memoria do Componente</h2>
+
+            <p class="destaque">
+                O <strong>state</strong> e onde guardamos dados que mudam ao longo do tempo. Quando o state muda, o
+                React re-renderiza automaticamente o componente com os novos valores.
+            </p>
+
+            <h3>useState: O Hook Fundamental</h3>
+            <div class="code-block" data-lang="JavaScript">
+                <code><span class="keyword">import</span> React, { useState } <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> { View, Text, Button, StyleSheet } <span class="keyword">from</span> <span class="string">'react-native'</span>;
+
+<span class="keyword">export default function</span> <span class="function">Contador</span>() {
+  <span class="comment">// useState retorna [valorAtual, funcaoParaAtualizar]</span>
+  <span class="keyword">const</span> [count, setCount] = <span class="function">useState</span>(<span class="number">0</span>);
+
+  <span class="keyword">const</span> <span class="function">incrementar</span> = () => {
+    <span class="function">setCount</span>(count + <span class="number">1</span>);
+  };
+
+  <span class="keyword">return</span> (
+    &lt;<span class="function">View</span> style={styles.container}&gt;
+      &lt;<span class="function">Text</span> style={styles.count}&gt;{count}&lt;/<span class="function">Text</span>&gt;
+      &lt;<span class="function">Button</span> title=<span class="string">"+1"</span> onPress={incrementar} /&gt;
+    &lt;/<span class="function">View</span>&gt;
+  );
+}</code>
+            </div>
+
+            <h3>State vs Props: Quando Usar Cada Um?</h3>
+            <table>
+                <tr>
+                    <th>Caracteristica</th>
+                    <th>Props</th>
+                    <th>State</th>
+                </tr>
+                <tr>
+                    <td>Origem</td>
+                    <td>Vem do componente pai</td>
+                    <td>Interno do componente</td>
+                </tr>
+                <tr>
+                    <td>Mutabilidade</td>
+                    <td>Imutavel (so leitura)</td>
+                    <td>Mutavel (via setState)</td>
+                </tr>
+                <tr>
+                    <td>Controle</td>
+                    <td>Quem passa controla</td>
+                    <td>Componente controla</td>
+                </tr>
+                <tr>
+                    <td>Quando usar</td>
+                    <td>Configuracao, dados iniciais</td>
+                    <td>Interacao do usuario</td>
+                </tr>
+            </table>
+
+            <div class="warning-box">
+                <span class="icon">⚠️</span>
+                <div>
+                    <strong>Nunca faca isso:</strong> <code>contador = 5</code> ou <code>contador++</code><br>
+                    <strong>Sempre use:</strong> <code>setContador(5)</code> ou
+                    <code>setContador(prev => prev + 1)</code>
+                </div>
+            </div>
+
+            <!-- TL;DR State -->
+            <div class="destaque">
+                <strong>TL;DR - Props vs State:</strong>
+                <p>Props configuram. State reage.</p>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- ===================================================== -->
+        <!-- SECAO 5: FORMULARIOS -->
+        <!-- ===================================================== -->
+        <section id="formulario">
+            <h2>5. Formularios e Entrada de Dados</h2>
+
+            <p class="destaque">
+                O <code>TextInput</code> e o componente de entrada de texto. No React Native, usamos o padrao
+                <strong>componente controlado</strong>: o valor do input vem do state, e ao digitar atualizamos o state.
+            </p>
+
+            <h3>Componente Controlado</h3>
+            <div class="code-block" data-lang="JavaScript">
+                <code><span class="keyword">const</span> [nome, setNome] = <span class="function">useState</span>(<span class="string">''</span>);
+
+&lt;<span class="function">TextInput</span>
+  value={nome}                  <span class="comment">// valor vem do state</span>
+  onChangeText={setNome}        <span class="comment">// ao digitar, atualiza state</span>
+  placeholder=<span class="string">"Digite seu nome"</span>
+  style={styles.input}
+/&gt;</code>
+            </div>
+
+            <h3>Props Importantes do TextInput</h3>
+            <table>
+                <tr>
+                    <th>Prop</th>
+                    <th>Funcao</th>
+                </tr>
+                <tr>
+                    <td><code>keyboardType</code></td>
+                    <td>Tipo de teclado: "email-address", "numeric", "phone-pad"</td>
+                </tr>
+                <tr>
+                    <td><code>secureTextEntry</code></td>
+                    <td>Oculta texto (para senhas)</td>
+                </tr>
+                <tr>
+                    <td><code>autoCapitalize</code></td>
+                    <td>"none", "words", "characters"</td>
+                </tr>
+                <tr>
+                    <td><code>multiline</code></td>
+                    <td>Permite multiplas linhas</td>
+                </tr>
+                <tr>
+                    <td><code>maxLength</code></td>
+                    <td>Limite de caracteres</td>
+                </tr>
+            </table>
+
+            <h3>Componente Controlado Explicado</h3>
+            <p>Quando o valor do TextInput vem do state e o state e atualizado pelo TextInput, chamamos isso de
+                <strong>Componente Controlado</strong>.</p>
+
+            <table>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Quem guarda o valor?</th>
+                </tr>
+                <tr>
+                    <td>Input comum</td>
+                    <td>O campo guarda o valor</td>
+                </tr>
+                <tr>
+                    <td>Input controlado</td>
+                    <td>O valor vive no state. O campo apenas exibe.</td>
+                </tr>
+            </table>
+
+            <h3>Eventos em React Native</h3>
+            <p>Evento e uma funcao que executa quando algo acontece. React e orientado a eventos - voce nao manda
+                atualizar, voce reage ao que acontece.</p>
+
+            <table>
+                <tr>
+                    <th>Evento</th>
+                    <th>Quando dispara</th>
+                </tr>
+                <tr>
+                    <td>onChangeText</td>
+                    <td>Quando o usuario digita</td>
+                </tr>
+                <tr>
+                    <td>onPress</td>
+                    <td>Quando o usuario toca/clica</td>
+                </tr>
+            </table>
+
+            <h3>TextInput vs HTML input</h3>
+            <div class="comparison-table">
+                <div class="comparison-item comparison-old">
+                    <h4>HTML input (Web)</h4>
+                    <ul>
+                        <li>Elemento do HTML</li>
+                        <li>S existe no navegador</li>
+                        <li>JSX vira HTML</li>
+                    </ul>
+                </div>
+                <div class="comparison-item comparison-new">
+                    <h4>TextInput (React Native)</h4>
+                    <ul>
+                        <li>Componente nativo</li>
+                        <li>JSX -> Bridge -> Nativo</li>
+                        <li>Android: EditText</li>
+                        <li>iOS: UITextField</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Erros Comuns com Formularios</h3>
+            <div class="warning-box">
+                <span class="icon">⚠️</span>
+                <div>
+                    <ul>
+                        <li>Esquecer de usar <code>value</code> no TextInput</li>
+                        <li>Tentar alterar o state direto (use sempre setState)</li>
+                        <li>Esquecer que state e assincrono</li>
+                        <li>Misturar muita logica dentro do JSX</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- TL;DR Formularios -->
+            <div class="destaque destaque-info">
+                <strong>TL;DR - Formularios:</strong>
+                <p><strong>React nao e sobre telas.</strong> React e sobre Estado → Interface e consequencia. Se o
+                    estado estiver correto, a interface se ajusta sozinha.</p>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- ===================================================== -->
+        <!-- SECAO 6: LAYOUT FLEXBOX -->
+        <!-- ===================================================== -->
+        <section id="layout">
+            <h2>6. Flexbox: Organizando a Interface</h2>
+
+            <p class="destaque">
+                No React Native, toda <code>View</code> ja tem <code>display: flex</code> por padrao. Os elementos
+                filhos obedecem automaticamente as regras do container.
+            </p>
+
+            <h3>Propriedades Principais</h3>
+            <table>
+                <tr>
+                    <th>Propriedade</th>
+                    <th>Funcao</th>
+                    <th>Valores Comuns</th>
+                </tr>
+                <tr>
+                    <td><code>flexDirection</code></td>
+                    <td>Eixo principal</td>
+                    <td><code>"column"</code> (vertical), <code>"row"</code> (horizontal)</td>
+                </tr>
+                <tr>
+                    <td><code>justifyContent</code></td>
+                    <td>Alinhamento no eixo principal</td>
+                    <td><code>"flex-start"</code>, <code>"center"</code>, <code>"space-between"</code></td>
+                </tr>
+                <tr>
+                    <td><code>alignItems</code></td>
+                    <td>Alinhamento no eixo secundario</td>
+                    <td><code>"stretch"</code>, <code>"center"</code>, <code>"flex-start"</code></td>
+                </tr>
+                <tr>
+                    <td><code>flex</code></td>
+                    <td>Proporcao de espaco</td>
+                    <td>Numero (1, 2, 3...)</td>
+                </tr>
+            </table>
+
+            <h3>Exemplos Praticos</h3>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Centralizar Perfeitamente</span>
+                    <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="code-block" data-lang="JavaScript">
+                        <code>container: {
+  flex: <span class="number">1</span>,
+  justifyContent: <span class="string">'center'</span>,  <span class="comment">// vertical (se column)</span>
+  alignItems: <span class="string">'center'</span>,      <span class="comment">// horizontal</span>
+}</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Duas Colunas Iguais</span>
+                    <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="code-block" data-lang="JavaScript">
+                        <code>&lt;<span class="function">View</span> style={{ flexDirection: <span class="string">'row'</span> }}&gt;
+  &lt;<span class="function">View</span> style={{ flex: <span class="number">1</span>, backgroundColor: <span class="string">'lightblue'</span> }} /&gt;
+  &lt;<span class="function">View</span> style={{ flex: <span class="number">1</span>, backgroundColor: <span class="string">'lightgreen'</span> }} /&gt;
+&lt;/<span class="function">View</span>&gt;</code>
+                    </div>
+                </div>
+            </div>
+
+            <h3>As 3 Perguntas do Flexbox</h3>
+            <p>Flexbox responde a tres perguntas fundamentais:</p>
+            <ol>
+                <li><strong>Em qual direcao os elementos ficam?</strong> → flexDirection</li>
+                <li><strong>Como eles se distribuem no eixo principal?</strong> → justifyContent</li>
+                <li><strong>Como eles se alinham no eixo secundario?</strong> → alignItems</li>
+            </ol>
+
+            <h3>Resumo: flexDirection e Eixos</h3>
+            <table>
+                <tr>
+                    <th>flexDirection</th>
+                    <th>justifyContent (principal)</th>
+                    <th>alignItems (secundario)</th>
+                </tr>
+                <tr>
+                    <td>column (padrao)</td>
+                    <td>Vertical</td>
+                    <td>Horizontal</td>
+                </tr>
+                <tr>
+                    <td>row</td>
+                    <td>Horizontal</td>
+                    <td>Vertical</td>
+                </tr>
+            </table>
+
+            <h3>flex: 1 - Ocupando Espaco</h3>
+            <p>O valor <code>flex: 1</code> faz o componente ocupar todo o espaco disponivel.</p>
+
+            <div class="code-block" data-lang="JavaScript">
+                <code><span class="keyword">const</span> styles = StyleSheet.<span class="function">create</span>({
+  container: {
+    flex: <span class="number">1</span>,  <span class="comment">// Ocupa tela inteira</span>
+    backgroundColor: <span class="string">'#f5f5f5'</span>,
+  },
+  header: {
+    flex: <span class="number">1</span>,  <span class="comment">// 1 parte do espaco</span>
+    backgroundColor: <span class="string">'blue'</span>,
+  },
+  content: {
+    flex: <span class="number">2</span>,  <span class="comment">// 2 partes (dobro)</span>
+    backgroundColor: <span class="string">'white'</span>,
+  },
+});</code>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- ===================================================== -->
+        <!-- SECAO 7: NAVEGACAO -->
+        <!-- ===================================================== -->
+        <section id="navegacao">
+            <h2>7. Navegacao Entre Telas</h2>
+
+            <p class="destaque">
+                Apps reais possuem multiplas telas. A biblioteca <strong>React Navigation</strong> e o padrao da
+                industria para navegar entre telas no React Native.
+            </p>
+
+            <h3>Instalacao</h3>
+            <div class="code-block code-terminal">
+                npm install @react-navigation/native @react-navigation/native-stack
+                npx expo install react-native-screens react-native-safe-area-context
+            </div>
+
+            <h3>Estrutura Basica</h3>
+            <div class="code-block" data-lang="JavaScript">
+                <code><span class="keyword">import</span> { NavigationContainer } <span class="keyword">from</span> <span class="string">'@react-navigation/native'</span>;
+<span class="keyword">import</span> { createNativeStackNavigator } <span class="keyword">from</span> <span class="string">'@react-navigation/native-stack'</span>;
+
+<span class="keyword">const</span> Stack = <span class="function">createNativeStackNavigator</span>();
+
+<span class="keyword">function</span> <span class="function">HomeScreen</span>({ navigation }) {
+  <span class="keyword">return</span> (
+    &lt;<span class="function">View</span>&gt;
+      &lt;<span class="function">Text</span>&gt;Tela Home&lt;/<span class="function">Text</span>&gt;
+      &lt;<span class="function">Button</span> title=<span class="string">"Ir para Perfil"</span> onPress={() => navigation.<span class="function">navigate</span>(<span class="string">'Perfil'</span>)} /&gt;
+    &lt;/<span class="function">View</span>&gt;
+  );
+}
+
+<span class="keyword">export default function</span> <span class="function">App</span>() {
+  <span class="keyword">return</span> (
+    &lt;<span class="function">NavigationContainer</span>&gt;
+      &lt;<span class="function">Stack.Navigator</span> initialRouteName=<span class="string">"Home"</span>&gt;
+        &lt;<span class="function">Stack.Screen</span> name=<span class="string">"Home"</span> component={HomeScreen} /&gt;
+        &lt;<span class="function">Stack.Screen</span> name=<span class="string">"Perfil"</span> component={PerfilScreen} /&gt;
+      &lt;/<span class="function">Stack.Navigator</span>&gt;
+    &lt;/<span class="function">NavigationContainer</span>&gt;
+  );
+}</code>
+            </div>
+
+            <h3>Metodos de Navegacao</h3>
+            <table>
+                <tr>
+                    <th>Metodo</th>
+                    <th>Funcao</th>
+                </tr>
+                <tr>
+                    <td><code>navigate('Tela', params)</code></td>
+                    <td>Vai para tela (empilha)</td>
+                </tr>
+                <tr>
+                    <td><code>goBack()</code></td>
+                    <td>Volta para tela anterior</td>
+                </tr>
+                <tr>
+                    <td><code>replace('Tela')</code></td>
+                    <td>Substitui tela atual (nao empilha)</td>
+                </tr>
+                <tr>
+                    <td><code>reset({ index: 0, routes })</code></td>
+                    <td>Reseta a pilha de navegacao</td>
+                </tr>
+            </table>
+
+            <h3>Passando Dados Entre Telas</h3>
+            <p>Para enviar dados de uma tela para outra, use o segundo parametro de navigate:</p>
+
+            <div class="code-block" data-lang="JavaScript">
+                <code><span class="comment">// Enviando dados</span>
+navigation.<span class="function">navigate</span>(<span class="string">'Home'</span>, { 
+  nome: <span class="string">'Maria'</span>,
+  idade: <span class="number">25</span> 
+});
+
+<span class="comment">// Recebendo dados na outra tela</span>
+<span class="keyword">function</span> <span class="function">HomeScreen</span>({ route }) {
+  <span class="keyword">const</span> { nome, idade } = route.params;
+  
+  <span class="keyword">return</span> (
+    &lt;<span class="function">View</span>&gt;
+      &lt;<span class="function">Text</span>&gt;Ola, {nome}!&lt;/<span class="function">Text</span>&gt;
+    &lt;/<span class="function">View</span>&gt;
+  );
+}</code>
+            </div>
+
+            <h3>Projeto Pratico: Fluxo de Login</h3>
+            <div class="exercise-box">
+                <h4>Exercicio: 3 Telas com Navegacao</h4>
+                <p>Criar 3 telas: Login → Home → Perfil</p>
+                <ul>
+                    <li>Login envia nome para Home</li>
+                    <li>Home mostra o nome recebido</li>
+                    <li>Home tem botao para Perfil</li>
+                    <li>Perfil tem botao Voltar</li>
+                </ul>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- ===================================================== -->
+        <!-- SECAO 8: HOOKS AVANCADOS -->
+        <!-- ===================================================== -->
+        <section id="hooks">
+            <h2>8. Hooks Avancados</h2>
+
+            <p class="destaque">
+                Alem do <code>useState</code>, React oferece varios hooks para diferentes cenarios. Dominar esses hooks
+                e essencial para construir apps profissionais.
+            </p>
+
+            <h3>useEffect: Efeitos Colaterais</h3>
+            <div class="code-block" data-lang="JavaScript">
+                <code><span class="keyword">import</span> { useEffect, useState } <span class="keyword">from</span> <span class="string">'react'</span>;
+
+<span class="keyword">function</span> <span class="function">UserProfile</span>({ userId }) {
+  <span class="keyword">const</span> [user, setUser] = <span class="function">useState</span>(<span class="keyword">null</span>);
+
+  <span class="function">useEffect</span>(() => {
+    <span class="comment">// Executa quando userId muda</span>
+    <span class="function">fetchUser</span>(userId).<span class="function">then</span>(setUser);
+
+    <span class="comment">// Funcao de limpeza (opcional)</span>
+    <span class="keyword">return</span> () => console.<span class="function">log</span>(<span class="string">'Limpeza'</span>);
+  }, [userId]); <span class="comment">// Array de dependencias</span>
+}</code>
+            </div>
+
+            <h3>Array de Dependencias</h3>
+            <table>
+                <tr>
+                    <th>Configuracao</th>
+                    <th>Quando Executa</th>
+                </tr>
+                <tr>
+                    <td><code>useEffect(() => {})</code></td>
+                    <td>Apos TODA renderizacao</td>
+                </tr>
+                <tr>
+                    <td><code>useEffect(() => {}, [])</code></td>
+                    <td>Apenas na montagem</td>
+                </tr>
+                <tr>
+                    <td><code>useEffect(() => {}, [dep])</code></td>
+                    <td>Na montagem e quando 'dep' mudar</td>
+                </tr>
+            </table>
+
+            <h3>useMemo e useCallback: Otimizacao</h3>
+            <div class="code-block" data-lang="JavaScript">
+                <code><span class="keyword">import</span> { useMemo, useCallback } <span class="keyword">from</span> <span class="string">'react'</span>;
+
+<span class="comment">// Memoriza resultado de calculo pesado</span>
+<span class="keyword">const</span> sortedItems = <span class="function">useMemo</span>(() => {
+  <span class="keyword">return</span> items.<span class="function">sort</span>((a, b) => a.name.<span class="function">localeCompare</span>(b.name));
+}, [items]);
+
+<span class="comment">// Memoriza funcao (evita re-render dos filhos)</span>
+<span class="keyword">const</span> handleItemClick = <span class="function">useCallback</span>((id) => {
+  <span class="function">onItemClick</span>(id);
+}, [onItemClick]);</code>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- ===================================================== -->
+        <!-- SECAO 9: CONSUMO DE APIs -->
+        <!-- ===================================================== -->
+        <section id="api">
+            <h2>9. Consumo de APIs</h2>
+
+            <p class="destaque">
+                Aplicativos modernos dependem de APIs externas. React Native oferece flexibilidade para consumir APIs
+                usando <code>fetch</code> nativo ou bibliotecas como Axios.
+            </p>
+
+            <h3>Fetch API Nativo</h3>
+            <div class="code-block" data-lang="JavaScript">
+                <code><span class="comment">// GET request</span>
+<span class="keyword">const</span> <span class="function">buscarUsuarios</span> = <span class="keyword">async</span> () => {
+  <span class="keyword">try</span> {
+    <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="function">fetch</span>(<span class="string">'https://jsonplaceholder.typicode.com/users'</span>);
+    <span class="keyword">const</span> data = <span class="keyword">await</span> response.<span class="function">json</span>();
+    <span class="function">setUsers</span>(data);
+  } <span class="keyword">catch</span> (error) {
+    console.<span class="function">error</span>(<span class="string">'Erro:'</span>, error);
+  }
+};</code>
+            </div>
+
+            <h3>Axios: Cliente HTTP Robusto</h3>
+            <div class="code-block code-terminal">
+                npm install axios
+            </div>
+
+            <div class="code-block" data-lang="JavaScript">
+                <code><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span>;
+
+<span class="keyword">const</span> api = axios.<span class="function">create</span>({
+  baseURL: <span class="string">'https://api.exemplo.com/v1'</span>,
+  timeout: <span class="number">10000</span>,
+});
+
+<span class="comment">// Interceptador para adicionar token</span>
+api.interceptors.request.<span class="function">use</span>(<span class="keyword">async</span> (config) => {
+  <span class="keyword">const</span> token = <span class="keyword">await</span> AsyncStorage.<span class="function">getItem</span>(<span class="string">'token'</span>);
+  <span class="keyword">if</span> (token) {
+    config.headers.Authorization = <span class="string">`Bearer ${token}`</span>;
+  }
+  <span class="keyword">return</span> config;
+});</code>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- ===================================================== -->
+        <!-- PARTE 2: AVANCADO -->
+        <!-- ===================================================== -->
+        <div class="part-header avancado">
+            <h2>PARTE 2 - AVANCADO</h2>
+            <p>Nova Arquitetura, Performance, Animacoes e Projetos Profissionais</p>
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- SECAO 10: NOVA ARQUITETURA -->
+        <!-- ===================================================== -->
+        <section id="nova-arquitetura">
+            <h2>10. Nova Arquitetura do React Native</h2>
+
+            <p class="destaque avancado">
+                A Nova Arquitetura representa o maior salto tecnologico do React Native desde sua criacao.
+                Ela substitui a Bridge tradicional por sistemas mais eficientes: <strong>JSI</strong>,
+                <strong>Fabric</strong> e <strong>TurboModules</strong>.
+            </p>
+
+            <h3>A Bridge Tradicional e Suas Limitacoes</h3>
+            <div class="comparison-table">
+                <div class="comparison-item comparison-old">
+                    <h4>❌ Bridge Antiga</h4>
+                    <ul>
+                        <li>Serializacao JSON obrigatoria</li>
+                        <li>Comunicacao apenas assincrona</li>
+                        <li>Fila unica (gargalo)</li>
+                        <li>Todos modulos carregados no inicio</li>
+                    </ul>
+                </div>
+                <div class="comparison-item comparison-new">
+                    <h4>✅ Nova Arquitetura</h4>
+                    <ul>
+                        <li>Acesso direto via JSI</li>
+                        <li>Chamadas sincronas e assincronas</li>
+                        <li>Comunicacao paralela</li>
+                        <li>Lazy loading de modulos</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>JSI - JavaScript Interface</h3>
+            <p>O JSI permite que JavaScript acesse diretamente objetos C++ sem serializacao.</p>
+
+            <div class="diagram">
+                <div class="diagram-title">JSI - JavaScript Interface</div>
+                +-------------------+ +-------------------+
+                | JAVASCRIPT | | NATIVO (C++) |
+                | (Hermes/JSC) | | |
+                +-------------------+ +-------------------+
+                | |
+                | +---------------------------+ |
+                +--->| JSI RUNTIME |<------+ | +---------------------+ | | | Host Functions | | <-- Chamadas diretas | |
+                    Host Objects | | <-- Zero-copy | | Memory Shared | | <-- Sincrono | +---------------------+ |
+                    +---------------------------+ </div>
+
+                    <h3>Fabric - Novo Sistema de Renderizacao</h3>
+                    <div class="flowchart">
+                        <div class="flow-step">1. Render Phase (Background)</div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">2. Calcula nova Shadow Tree</div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">3. Commit Phase (Atomic)</div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step">4. Mount Phase (Native)</div>
+                    </div>
+
+                    <div class="tip-box">
+                        <span class="icon">💡</span>
+                        <div>
+                            <strong>Beneficio pratico:</strong> Com Fabric, atualizacoes de alta prioridade (input do
+                            usuario) podem interromper renders de baixa prioridade, melhorando a responsividade.
+                        </div>
+                    </div>
+        </section>
+
+        <hr>
+
+        <!-- ===================================================== -->
+        <!-- SECAO 11: PERFORMANCE -->
+        <!-- ===================================================== -->
+        <section id="performance">
+            <h2>11. Otimizacao de Performance</h2>
+
+            <p class="destaque avancado">
+                Performance e critica em apps mobile. Usuarios esperam 60 FPS fluidos,
+                resposta instantanea a toques e carregamento rapido.
+            </p>
+
+            <h3>Ferramentas de Profiling</h3>
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4>Flipper</h4>
+                    <p>Inspector completo para React Native: layout, rede, banco de dados, logs e performance.</p>
+                </div>
+                <div class="info-card">
+                    <h4>React DevTools</h4>
+                    <p>Visualize a arvore de componentes e identifique re-renders desnecessarios.</p>
+                </div>
+                <div class="info-card">
+                    <h4>Hermes Profiler</h4>
+                    <p>Perfil de CPU e memoria do engine JavaScript Hermes.</p>
+                </div>
+            </div>
+
+            <h3>Problemas Comuns e Solucoes</h3>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>1. Re-renders Desnecessarios</span>
+                    <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Solucao:</strong> Use React.memo, useMemo e useCallback:</p>
+                    <div class="code-block" data-lang="JavaScript">
+                        <code><span class="comment">// Componente memoizado</span>
+<span class="keyword">const</span> UserCard = React.<span class="function">memo</span>(({ user, onPress }) => {
+  <span class="keyword">return</span> (
+    &lt;<span class="function">TouchableOpacity</span> onPress={onPress}&gt;
+      &lt;<span class="function">Text</span>&gt;{user.name}&lt;/<span class="function">Text</span>&gt;
+    &lt;/<span class="function">TouchableOpacity</span>&gt;
+  );
+});
+
+<span class="comment">// Hook para memoizar valores</span>
+<span class="keyword">const</span> sortedItems = <span class="function">useMemo</span>(() => {
+  <span class="keyword">return</span> items.<span class="function">sort</span>((a, b) => a.name.<span class="function">localeCompare</span>(b.name));
+}, [items]);</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>2. Listas Lentas</span>
+                    <span class="accordion-icon">+</span>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Solucao:</strong> Use FlatList com virtualizacao:</p>
+                    <div class="code-block" data-lang="JavaScript">
+                        <code>&lt;<span class="function">FlatList</span>
+  data={items}
+  keyExtractor={(item) => item.id}
+  renderItem={renderItem}
+  removeClippedSubviews={<span class="keyword">true</span>}
+  maxToRenderPerBatch={<span class="number">10</span>}
+  windowSize={<span class="number">21</span>}
+  initialNumToRender={<span class="number">10</span>}
+  getItemLayout={(data, index) => ({
+    length: ITEM_HEIGHT,
+    offset: ITEM_HEIGHT * index,
+    index,
+  })}
+/&gt;</code>
+                    </div>
+                </div>
+            </div>
+
+            <h3>ScrollView vs FlatList: Quando Usar?</h3>
+            <table>
+                <tr>
+                    <th>Caracteristica</th>
+                    <th>ScrollView</th>
+                    <th>FlatList</th>
+                </tr>
+                <tr>
+                    <td>Complexidade</td>
+                    <td>Simples</td>
+                    <td>Mais avancado</td>
+                </tr>
+                <tr>
+                    <td>Carregamento</td>
+                    <td>Carrega tudo na memoria</td>
+                    <td>Carrega so o visivel</td>
+                </tr>
+                <tr>
+                    <td>Ideal para</td>
+                    <td>Poucos itens</td>
+                    <td>Listas grandes</td>
+                </tr>
+                <tr>
+                    <td>Performance</td>
+                    <td>Pode ficar lento</td>
+                    <td>Mais performatico</td>
+                </tr>
+            </table>
+
+            <div class="warning-box">
+                <span class="icon">⚠️</span>
+                <div>
+                    <strong>Atencao:</strong> O ScrollView carrega todos os elementos na memoria ao mesmo tempo. Se
+                    tivermos 1000 ou 5000 itens, o aplicativo pode ficar lento. Por isso, use FlatList para listas
+                    grandes!
+                </div>
+            </div>
+
+            <h3>Checklist de Performance</h3>
+            <table>
+                <tr>
+                    <th>Area</th>
+                    <th>Verificar</th>
+                    <th>Ferramenta</th>
+                </tr>
+                <tr>
+                    <td>JavaScript</td>
+                    <td>Re-renders desnecessarios, memory leaks</td>
+                    <td>React DevTools, Flipper</td>
+                </tr>
+                <tr>
+                    <td>Lista</td>
+                    <td>Virtualizacao, keyExtractor, getItemLayout</td>
+                    <td>Flipper Layout</td>
+                </tr>
+                <tr>
+                    <td>Imagens</td>
+                    <td>Tamanho, cache, formato</td>
+                    <td>Flipper Network</td>
+                </tr>
+                <tr>
+                    <td>Native</td>
+                    <td>Bridge overhead, view hierarquia</td>
+                    <td>Instruments, Android Profiler</td>
+                </tr>
+            </table>
+        </section>
+
+        <hr>
+
+        <!-- ===================================================== -->
+        <!-- SECAO 12: ANIMACOES -->
+        <!-- ===================================================== -->
+        <section id="animacoes">
+            <h2>12. Animacoes Avancadas</h2>
+
+            <p class="destaque avancado">
+                Animacoes fluidas sao essenciais para uma experiencia mobile premium.
+                O React Native oferece <strong>Reanimated 3</strong> para animacoes de alta performance.
+            </p>
+
+            <h3>Reanimated 3: Animacoes na UI Thread</h3>
+            <div class="code-block code-terminal">
+                npm install react-native-reanimated
+            </div>
+
+            <h4>Animacao Basica com Shared Values</h4>
+            <div class="code-block" data-lang="JavaScript">
+                <code><span class="keyword">import</span> Animated, { 
+  useSharedValue, useAnimatedStyle, withSpring 
+} <span class="keyword">from</span> <span class="string">'react-native-reanimated'</span>;
+
+<span class="keyword">function</span> <span class="function">AnimatedCard</span>() {
+  <span class="keyword">const</span> scale = <span class="function">useSharedValue</span>(<span class="number">1</span>);
+
+  <span class="keyword">const</span> animatedStyle = <span class="function">useAnimatedStyle</span>(() => {
+    <span class="keyword">return</span> {
+      transform: [{ scale: scale.value }],
+    };
+  });
+
+  <span class="keyword">const</span> <span class="function">handlePressIn</span> = () => {
+    scale.value = <span class="function">withSpring</span>(<span class="number">0.95</span>);
+  };
+
+  <span class="keyword">const</span> <span class="function">handlePressOut</span> = () => {
+    scale.value = <span class="function">withSpring</span>(<span class="number">1</span>);
+  };
+
+  <span class="keyword">return</span> (
+    &lt;<span class="function">Pressable</span> onPressIn={handlePressIn} onPressOut={handlePressOut}&gt;
+      &lt;<span class="function">Animated.View</span> style={[styles.card, animatedStyle]}&gt;
+        &lt;<span class="function">Text</span>&gt;Card Animado&lt;/<span class="function">Text</span>&gt;
+      &lt;/<span class="function">Animated.View</span>&gt;
+    &lt;/<span class="function">Pressable</span>&gt;
+  );
+}</code>
+            </div>
+
+            <div class="tip-box">
+                <span class="icon">💡</span>
+                <div>
+                    <strong>Performance tip:</strong> Reanimated 3 roda na UI Thread, entao as animacoes continuam
+                    fluidas mesmo se a JS Thread estiver ocupada.
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- ===================================================== -->
+        <!-- SECAO 13: PROJETOS PROFISSIONAIS -->
+        <!-- ===================================================== -->
+        <section id="projetos-profissionais">
+            <h2>13. Projetos Profissionais Guiados</h2>
+
+            <p class="destaque avancado">
+                A melhor forma de dominar React Native e construindo projetos reais.
+                Cada projeto abaixo aborda conceitos especificos e pode ser expandido.
+            </p>
+
+            <div class="project-card">
+                <h4>Projeto 1: Clone do Instagram</h4>
+                <p><strong>Dificuldade:</strong> Avancado | <strong>Tempo:</strong> 20-30 horas</p>
+
+                <p><strong>Funcionalidades:</strong></p>
+                <ul>
+                    <li>Feed de posts com imagens e curtidas</li>
+                    <li>Stories no topo (horizontal scroll)</li>
+                    <li>Tela de perfil com estatisticas</li>
+                    <li>Navegacao via Tab Navigator</li>
+                </ul>
+
+                <div class="project-tags">
+                    <span class="project-tag">React Navigation</span>
+                    <span class="project-tag">FlatList</span>
+                    <span class="project-tag">Reanimated</span>
+                    <span class="project-tag">Firebase</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h4>Projeto 2: App de Delivery (iFood clone)</h4>
+                <p><strong>Dificuldade:</strong> Avancado | <strong>Tempo:</strong> 25-35 horas</p>
+
+                <p><strong>Funcionalidades:</strong></p>
+                <ul>
+                    <li>Listagem de restaurantes por categoria</li>
+                    <li>Busca por nome/tipo de comida</li>
+                    <li>Carrinho de compras</li>
+                    <li>Rastreamento de pedido em tempo real</li>
+                </ul>
+
+                <div class="project-tags">
+                    <span class="project-tag">React Query</span>
+                    <span class="project-tag">Zustand</span>
+                    <span class="project-tag">Maps</span>
+                    <span class="project-tag">WebSocket</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h4>Projeto 3: App de Financas Pessoais</h4>
+                <p><strong>Dificuldade:</strong> Intermediario | <strong>Tempo:</strong> 15-20 horas</p>
+
+                <p><strong>Funcionalidades:</strong></p>
+                <ul>
+                    <li>Registro de receitas e despesas</li>
+                    <li>Categorizacao automatica</li>
+                    <li>Graficos de gastos por categoria</li>
+                    <li>Metas de economia</li>
+                </ul>
+
+                <div class="project-tags">
+                    <span class="project-tag">Victory Charts</span>
+                    <span class="project-tag">WatermelonDB</span>
+                    <span class="project-tag">Date Picker</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h4>Projeto 4: App de Chat em Tempo Real</h4>
+                <p><strong>Dificuldade:</strong> Avancado | <strong>Tempo:</strong> 20-25 horas</p>
+
+                <p><strong>Funcionalidades:</strong></p>
+                <ul>
+                    <li>Lista de conversas</li>
+                    <li>Chat em tempo real com WebSocket</li>
+                    <li>Envio de mensagens de texto, imagem e audio</li>
+                    <li>Status de mensagem (enviado, entregue, lido)</li>
+                </ul>
+
+                <div class="project-tags">
+                    <span class="project-tag">Socket.io</span>
+                    <span class="project-tag">GiftedChat</span>
+                    <span class="project-tag">Firebase Auth</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h4>Projeto 5: App de Fitness</h4>
+                <p><strong>Dificuldade:</strong> Intermediario-Avancado | <strong>Tempo:</strong> 18-22 horas</p>
+
+                <p><strong>Funcionalidades:</strong></p>
+                <ul>
+                    <li>Cadastro de treinos personalizados</li>
+                    <li>Cronometro e timer para exercicios</li>
+                    <li>Historico de treinos</li>
+                    <li>Integracao com HealthKit/Google Fit</li>
+                </ul>
+
+                <div class="project-tags">
+                    <span class="project-tag">React Native Health</span>
+                    <span class="project-tag">Background Timer</span>
+                    <span class="project-tag">Charts</span>
+                </div>
+            </div>
+
+            <h3>Resumo dos Projetos</h3>
+            <table>
+                <tr>
+                    <th>Projeto</th>
+                    <th>Nivel</th>
+                    <th>Tempo Est.</th>
+                    <th>Focus Principal</th>
+                </tr>
+                <tr>
+                    <td>Clone Instagram</td>
+                    <td>Avancado</td>
+                    <td>20-30h</td>
+                    <td>UI complexa, navegacao, midia</td>
+                </tr>
+                <tr>
+                    <td>Delivery App</td>
+                    <td>Avancado</td>
+                    <td>25-35h</td>
+                    <td>Maps, real-time, pagamentos</td>
+                </tr>
+                <tr>
+                    <td>Financas Pessoais</td>
+                    <td>Intermediario</td>
+                    <td>15-20h</td>
+                    <td>Dados locais, graficos</td>
+                </tr>
+                <tr>
+                    <td>Chat App</td>
+                    <td>Avancado</td>
+                    <td>20-25h</td>
+                    <td>WebSocket, real-time, auth</td>
+                </tr>
+                <tr>
+                    <td>Fitness App</td>
+                    <td>Intermediario</td>
+                    <td>18-22h</td>
+                    <td>Sensores, timers, health SDKs</td>
+                </tr>
+            </table>
+        </section>
+
+        <hr>
+
+        <!-- ===================================================== -->
+        <!-- SECAO: ORGANIZACAO DE PROJETOS -->
+        <!-- ===================================================== -->
+        <section id="organizacao">
+            <h2>Organizacao de Projetos React Native</h2>
+
+            <p class="destaque">
+                Em aplicacoes maiores, o codigo precisa estar organizado. Uma estrutura comum:
+            </p>
+
+            <div class="code-block" data-lang="Estrutura">
+                <code>meu-app/
+├── src/
+│   ├── components/     # Componentes reutilizaveis
+│   │   ├── Button/
+│   │   ├── Card/
+│   │   └── Header/
+│   ├── screens/        # Telas completas
+│   │   ├── LoginScreen/
+│   │   ├── HomeScreen/
+│   │   └── ProfileScreen/
+│   ├── services/       # APIs e servicos
+│   │   └── api.js
+│   ├── navigation/     # Configuracao de navegacao
+│   │   └── AppNavigator.js
+│   └── utils/          # Funcoes utilitarias
+│       └── helpers.js
+└── App.js              # Ponto de entrada</code>
+            </div>
+
+            <h3>Vantagens da Modularizacao</h3>
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4>Organizacao</h4>
+                    <p>Cada arquivo tem uma responsabilidade clara.</p>
+                </div>
+                <div class="info-card">
+                    <h4>Reutilizacao</h4>
+                    <p>Componentes podem ser usados em varias telas.</p>
+                </div>
+                <div class="info-card">
+                    <h4>Manutencao</h4>
+                    <p>Mais facil de encontrar e corrigir problemas.</p>
+                </div>
+                <div class="info-card">
+                    <h4>Colaboracao</h4>
+                    <p>Equipes podem trabalhar em arquivos separados.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- ===================================================== -->
+        <!-- PARTE 3: EXERCICIOS -->
+        <!-- ===================================================== -->
+        <div class="part-header exercicios">
+            <h2>PARTE 3 - EXERCICIOS</h2>
+            <p>Pratica progressiva do iniciante ao avancado com codigo completo</p>
+        </div>
+
+        <section id="exercicios">
+            <h2>15. Exercicios e Solucoes</h2>
+
+            <p class="destaque" style="border-left-color: #28a745; background: #d4edda;">
+                Tente resolver sozinho antes de ver a solucao! Clique em "Ver Solucao" para conferir o codigo completo.
+            </p>
+
+            <!-- NIVEL INICIANTE -->
+            <h3 style="color: #28a745; border-bottom: 3px solid #28a745; padding-bottom: 0.5rem;">Nivel Iniciante</h3>
+
+            <!-- EXERCICIO 1 -->
+            <div class="exercise-card" data-number="1">
+                <h4>Contador com Limites</h4>
+                <span class="difficulty difficulty-easy">Facil</span>
+
+                <p><strong>Objetivo:</strong> Criar um contador que:</p>
+                <ul>
+                    <li>Inicia em 0</li>
+                    <li>Tem botoes +1 e -1</li>
+                    <li>Nao permite valores negativos (min: 0)</li>
+                    <li>Nao permite valores acima de 100 (max: 100)</li>
+                    <li>Exibe mensagem quando atinge os limites</li>
+                </ul>
+
+                <div class="solution-box">
+                    <div class="solution-header" onclick="toggleSolution(this)">
+                        <span>Ver Solucao</span>
+                        <span>+</span>
+                    </div>
+                    <div class="solution-content">
+                        <div class="code-block" data-lang="JavaScript">
+                            <code><span class="keyword">import</span> React, { useState } <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> { View, Text, TouchableOpacity, StyleSheet, Alert } <span class="keyword">from</span> <span class="string">'react-native'</span>;
+
+<span class="keyword">export default function</span> <span class="function">ContadorLimitado</span>() {
+  <span class="keyword">const</span> [count, setCount] = <span class="function">useState</span>(<span class="number">0</span>);
+  <span class="keyword">const</span> MIN = <span class="number">0</span>;
+  <span class="keyword">const</span> MAX = <span class="number">100</span>;
+
+  <span class="keyword">const</span> <span class="function">incrementar</span> = () => {
+    <span class="keyword">if</span> (count >= MAX) {
+      Alert.<span class="function">alert</span>(<span class="string">'Limite atingido'</span>, <span class="string">'Valor maximo e 100!'</span>);
+      <span class="keyword">return</span>;
+    }
+    <span class="function">setCount</span>(count + <span class="number">1</span>);
+  };
+
+  <span class="keyword">const</span> <span class="function">decrementar</span> = () => {
+    <span class="keyword">if</span> (count <= MIN) {
+      Alert.<span class="function">alert</span>(<span class="string">'Limite atingido'</span>, <span class="string">'Valor minimo e 0!'</span>);
+      <span class="keyword">return</span>;
+    }
+    <span class="function">setCount</span>(count - <span class="number">1</span>);
+  };
+
+  <span class="keyword">const</span> <span class="function">resetar</span> = () => <span class="function">setCount</span>(<span class="number">0</span>);
+
+  <span class="keyword">return</span> (
+    &lt;<span class="function">View</span> style={styles.container}&gt;
+      &lt;<span class="function">Text</span> style={styles.titulo}&gt;Contador&lt;/<span class="function">Text</span>&gt;
+      &lt;<span class="function">View</span> style={styles.display}&gt;
+        &lt;<span class="function">Text</span> style={[styles.count, count === MAX && styles.limitReached]}&gt;
+          {count}
+        &lt;/<span class="function">Text</span>&gt;
+      &lt;/<span class="function">View</span>&gt;
+      &lt;<span class="function">View</span> style={styles.botoes}&gt;
+        &lt;<span class="function">TouchableOpacity</span> style={[styles.botao, styles.botaoMenos]} onPress={decrementar}&gt;
+          &lt;<span class="function">Text</span> style={styles.botaoTexto}&gt;- 1&lt;/<span class="function">Text</span>&gt;
+        &lt;/<span class="function">TouchableOpacity</span>&gt;
+        &lt;<span class="function">TouchableOpacity</span> style={[styles.botao, styles.botaoReset]} onPress={resetar}&gt;
+          &lt;<span class="function">Text</span> style={styles.botaoTexto}&gt;Reset&lt;/<span class="function">Text</span>&gt;
+        &lt;/<span class="function">TouchableOpacity</span>&gt;
+        &lt;<span class="function">TouchableOpacity</span> style={[styles.botao, styles.botaoMais]} onPress={incrementar}&gt;
+          &lt;<span class="function">Text</span> style={styles.botaoTexto}&gt;+ 1&lt;/<span class="function">Text</span>&gt;
+        &lt;/<span class="function">TouchableOpacity</span>&gt;
+      &lt;/<span class="function">View</span>&gt;
+      &lt;<span class="function">Text</span> style={styles.info}&gt;Min: {MIN} | Max: {MAX}&lt;/<span class="function">Text</span>&gt;
+    &lt;/<span class="function">View</span>&gt;
+  );
+}
+
+<span class="keyword">const</span> styles = StyleSheet.<span class="function">create</span>({
+  container: { flex: <span class="number">1</span>, justifyContent: <span class="string">'center'</span>, alignItems: <span class="string">'center'</span>, backgroundColor: <span class="string">'#f5f5f5'</span> },
+  titulo: { fontSize: <span class="number">28</span>, fontWeight: <span class="string">'bold'</span>, marginBottom: <span class="number">20</span> },
+  display: { backgroundColor: <span class="string">'white'</span>, width: <span class="number">150</span>, height: <span class="number">150</span>, borderRadius: <span class="number">75</span>, justifyContent: <span class="string">'center'</span>, alignItems: <span class="string">'center'</span>, marginBottom: <span class="number">30</span> },
+  count: { fontSize: <span class="number">60</span>, fontWeight: <span class="string">'bold'</span>, color: <span class="string">'#28a745'</span> },
+  limitReached: { color: <span class="string">'#dc3545'</span> },
+  botoes: { flexDirection: <span class="string">'row'</span>, gap: <span class="number">10</span>, marginBottom: <span class="number">20</span> },
+  botao: { width: <span class="number">80</span>, height: <span class="number">50</span>, borderRadius: <span class="number">25</span>, justifyContent: <span class="string">'center'</span>, alignItems: <span class="string">'center'</span> },
+  botaoMenos: { backgroundColor: <span class="string">'#dc3545'</span> },
+  botaoMais: { backgroundColor: <span class="string">'#28a745'</span> },
+  botaoReset: { backgroundColor: <span class="string">'#6c757d'</span> },
+  botaoTexto: { color: <span class="string">'white'</span>, fontSize: <span class="number">16</span>, fontWeight: <span class="string">'bold'</span> },
+  info: { fontSize: <span class="number">14</span>, color: <span class="string">'#666'</span> },
+});</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXERCICIO 2 -->
+            <div class="exercise-card" data-number="2">
+                <h4>Lista de Tarefas Simples</h4>
+                <span class="difficulty difficulty-easy">Facil</span>
+
+                <p><strong>Objetivo:</strong> Criar uma lista de tarefas onde:</p>
+                <ul>
+                    <li>Usuario digita uma tarefa e adiciona a lista</li>
+                    <li>Cada tarefa tem um botao para remover</li>
+                    <li>Exibir contador de tarefas</li>
+                    <li>Nao permitir tarefa vazia</li>
+                </ul>
+
+                <div class="solution-box">
+                    <div class="solution-header" onclick="toggleSolution(this)">
+                        <span>Ver Solucao</span>
+                        <span>+</span>
+                    </div>
+                    <div class="solution-content">
+                        <div class="code-block" data-lang="JavaScript">
+                            <code><span class="keyword">import</span> React, { useState } <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, Alert } <span class="keyword">from</span> <span class="string">'react-native'</span>;
+
+<span class="keyword">export default function</span> <span class="function">ListaTarefas</span>() {
+  <span class="keyword">const</span> [tarefa, setTarefa] = <span class="function">useState</span>(<span class="string">''</span>);
+  <span class="keyword">const</span> [tarefas, setTarefas] = <span class="function">useState</span>([]);
+
+  <span class="keyword">const</span> <span class="function">adicionarTarefa</span> = () => {
+    <span class="keyword">if</span> (tarefa.<span class="function">trim</span>() === <span class="string">''</span>) {
+      Alert.<span class="function">alert</span>(<span class="string">'Erro'</span>, <span class="string">'Digite uma tarefa!'</span>);
+      <span class="keyword">return</span>;
+    }
+    <span class="function">setTarefas</span>([{ id: Date.<span class="function">now</span>().<span class="function">toString</span>(), texto: tarefa.<span class="function">trim</span>() }, ...tarefas]);
+    <span class="function">setTarefa</span>(<span class="string">''</span>);
+  };
+
+  <span class="keyword">const</span> <span class="function">removerTarefa</span> = (id) => {
+    <span class="function">setTarefas</span>(tarefas.<span class="function">filter</span>(t => t.id !== id));
+  };
+
+  <span class="keyword">const</span> <span class="function">renderItem</span> = ({ item }) => (
+    &lt;<span class="function">View</span> style={styles.item}&gt;
+      &lt;<span class="function">Text</span> style={styles.itemTexto}&gt;{item.texto}&lt;/<span class="function">Text</span>&gt;
+      &lt;<span class="function">TouchableOpacity</span> onPress={() => <span class="function">removerTarefa</span>(item.id)}&gt;
+        &lt;<span class="function">Text</span> style={styles.botaoRemover}&gt;×&lt;/<span class="function">Text</span>&gt;
+      &lt;/<span class="function">TouchableOpacity</span>&gt;
+    &lt;/<span class="function">View</span>&gt;
+  );
+
+  <span class="keyword">return</span> (
+    &lt;<span class="function">View</span> style={styles.container}&gt;
+      &lt;<span class="function">Text</span> style={styles.titulo}&gt;Minhas Tarefas&lt;/<span class="function">Text</span>&gt;
+      &lt;<span class="function">Text</span> style={styles.contador}&gt;{tarefas.length} tarefa{tarefas.length !== <span class="number">1</span> && <span class="string">'s'</span>}&lt;/<span class="function">Text</span>&gt;
+      &lt;<span class="function">View</span> style={styles.inputContainer}&gt;
+        &lt;<span class="function">TextInput</span> style={styles.input} placeholder=<span class="string">"Nova tarefa..."</span> value={tarefa} onChangeText={setTarefa} onSubmitEditing={adicionarTarefa} /&gt;
+        &lt;<span class="function">TouchableOpacity</span> style={styles.botaoAdd} onPress={adicionarTarefa}&gt;
+          &lt;<span class="function">Text</span> style={styles.botaoAddTexto}&gt;+&lt;/<span class="function">Text</span>&gt;
+        &lt;/<span class="function">TouchableOpacity</span>&gt;
+      &lt;/<span class="function">View</span>&gt;
+      &lt;<span class="function">FlatList</span> data={tarefas} keyExtractor={(item) => item.id} renderItem={renderItem} ListEmptyComponent={&lt;<span class="function">Text</span> style={styles.vazio}&gt;Nenhuma tarefa&lt;/<span class="function">Text</span>&gt;} /&gt;
+    &lt;/<span class="function">View</span>&gt;
+  );
+}
+
+<span class="keyword">const</span> styles = StyleSheet.<span class="function">create</span>({
+  container: { flex: <span class="number">1</span>, padding: <span class="number">20</span>, backgroundColor: <span class="string">'#f5f5f5'</span> },
+  titulo: { fontSize: <span class="number">28</span>, fontWeight: <span class="string">'bold'</span> },
+  contador: { fontSize: <span class="number">14</span>, color: <span class="string">'#666'</span>, marginBottom: <span class="number">20</span> },
+  inputContainer: { flexDirection: <span class="string">'row'</span>, marginBottom: <span class="number">20</span> },
+  input: { flex: <span class="number">1</span>, backgroundColor: <span class="string">'white'</span>, padding: <span class="number">15</span>, borderRadius: <span class="number">10</span>, marginRight: <span class="number">10</span> },
+  botaoAdd: { backgroundColor: <span class="string">'#28a745'</span>, width: <span class="number">50</span>, borderRadius: <span class="number">25</span>, justifyContent: <span class="string">'center'</span>, alignItems: <span class="string">'center'</span> },
+  botaoAddTexto: { color: <span class="string">'white'</span>, fontSize: <span class="number">24</span>, fontWeight: <span class="string">'bold'</span> },
+  item: { flexDirection: <span class="string">'row'</span>, alignItems: <span class="string">'center'</span>, backgroundColor: <span class="string">'white'</span>, padding: <span class="number">15</span>, borderRadius: <span class="number">10</span>, marginBottom: <span class="number">10</span> },
+  itemTexto: { flex: <span class="number">1</span>, fontSize: <span class="number">16</span> },
+  botaoRemover: { color: <span class="string">'#dc3545'</span>, fontSize: <span class="number">20</span>, fontWeight: <span class="string">'bold'</span> },
+  vazio: { textAlign: <span class="string">'center'</span>, color: <span class="string">'#999'</span>, marginTop: <span class="number">50</span> },
+});</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- NIVEL INTERMEDIARIO -->
+            <h3 style="color: #ffc107; border-bottom: 3px solid #ffc107; padding-bottom: 0.5rem;">Nivel Intermediario
+            </h3>
+
+            <!-- EXERCICIO 3 -->
+            <div class="exercise-card" data-number="3">
+                <h4>Busca de Usuarios com API</h4>
+                <span class="difficulty difficulty-medium">Medio</span>
+
+                <p><strong>Objetivo:</strong> Criar uma tela que:</p>
+                <ul>
+                    <li>Busca usuarios da API JSONPlaceholder</li>
+                    <li>Exibe loading durante a requisicao</li>
+                    <li>Trata erros com opcao de retry</li>
+                    <li>Implementa pull-to-refresh</li>
+                    <li>Implementa busca local por nome</li>
+                </ul>
+
+                <div class="solution-box">
+                    <div class="solution-header" onclick="toggleSolution(this)">
+                        <span>Ver Solucao</span>
+                        <span>+</span>
+                    </div>
+                    <div class="solution-content">
+                        <div class="code-block" data-lang="JavaScript">
+                            <code><span class="keyword">import</span> React, { useState, useEffect } <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> { View, Text, FlatList, TextInput, ActivityIndicator, TouchableOpacity, StyleSheet, RefreshControl } <span class="keyword">from</span> <span class="string">'react-native'</span>;
+
+<span class="keyword">export default function</span> <span class="function">BuscaUsuarios</span>() {
+  <span class="keyword">const</span> [usuarios, setUsuarios] = <span class="function">useState</span>([]);
+  <span class="keyword">const</span> [loading, setLoading] = <span class="function">useState</span>(<span class="keyword">true</span>);
+  <span class="keyword">const</span> [error, setError] = <span class="function">useState</span>(<span class="keyword">null</span>);
+  <span class="keyword">const</span> [refreshing, setRefreshing] = <span class="function">useState</span>(<span class="keyword">false</span>);
+  <span class="keyword">const</span> [busca, setBusca] = <span class="function">useState</span>(<span class="string">''</span>);
+
+  <span class="keyword">const</span> <span class="function">fetchUsuarios</span> = <span class="keyword">async</span> () => {
+    <span class="keyword">try</span> {
+      setError(<span class="keyword">null</span>);
+      setLoading(<span class="keyword">true</span>);
+      <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="function">fetch</span>(<span class="string">'https://jsonplaceholder.typicode.com/users'</span>);
+      <span class="keyword">if</span> (!response.ok) <span class="keyword">throw new</span> <span class="function">Error</span>(<span class="string">'Falha na requisicao'</span>);
+      <span class="keyword">const</span> data = <span class="keyword">await</span> response.<span class="function">json</span>();
+      <span class="function">setUsuarios</span>(data);
+    } <span class="keyword">catch</span> (err) {
+      <span class="function">setError</span>(err.message);
+    } <span class="keyword">finally</span> {
+      setLoading(<span class="keyword">false</span>);
+    }
+  };
+
+  <span class="function">useEffect</span>(() => { <span class="function">fetchUsuarios</span>(); }, []);
+
+  <span class="keyword">const</span> usuariosFiltrados = usuarios.<span class="function">filter</span>(user =>
+    user.name.<span class="function">toLowerCase</span>().<span class="function">includes</span>(busca.<span class="function">toLowerCase</span>())
+  );
+
+  <span class="keyword">if</span> (loading && !refreshing) <span class="keyword">return</span> &lt;<span class="function">ActivityIndicator</span> size=<span class="string">"large"</span> color=<span class="string">"#28a745"</span> style={{ marginTop: <span class="number">50</span> }} /&gt;;
+  <span class="keyword">if</span> (error) <span class="keyword">return</span> (
+    &lt;<span class="function">View</span> style={styles.center}&gt;
+      &lt;<span class="function">Text</span>&gt;Erro: {error}&lt;/<span class="function">Text</span>&gt;
+      &lt;<span class="function">TouchableOpacity</span> style={styles.retryButton} onPress={fetchUsuarios}&gt;
+        &lt;<span class="function">Text</span> style={styles.retryText}&gt;Tentar novamente&lt;/<span class="function">Text</span>&gt;
+      &lt;/<span class="function">TouchableOpacity</span>&gt;
+    &lt;/<span class="function">View</span>&gt;
+  );
+
+  <span class="keyword">return</span> (
+    &lt;<span class="function">View</span> style={styles.container}&gt;
+      &lt;<span class="function">Text</span> style={styles.titulo}&gt;Usuarios&lt;/<span class="function">Text</span>&gt;
+      &lt;<span class="function">TextInput</span> style={styles.input} placeholder=<span class="string">"Buscar por nome..."</span> value={busca} onChangeText={setBusca} /&gt;
+      &lt;<span class="function">FlatList</span>
+        data={usuariosFiltrados}
+        keyExtractor={(item) => item.id.<span class="function">toString</span>()}
+        renderItem={({ item }) => (
+          &lt;<span class="function">View</span> style={styles.card}&gt;
+            &lt;<span class="function">Text</span> style={styles.nome}&gt;{item.name}&lt;/<span class="function">Text</span>&gt;
+            &lt;<span class="function">Text</span> style={styles.email}&gt;{item.email}&lt;/<span class="function">Text</span>&gt;
+          &lt;/<span class="function">View</span>&gt;
+        )}
+        refreshControl={&lt;<span class="function">RefreshControl</span> refreshing={refreshing} onRefresh={fetchUsuarios} colors={[<span class="string">'#28a745'</span>]} /&gt;}
+      /&gt;
+    &lt;/<span class="function">View</span>&gt;
+  );
+}
+
+<span class="keyword">const</span> styles = StyleSheet.<span class="function">create</span>({
+  container: { flex: <span class="number">1</span>, backgroundColor: <span class="string">'#f5f5f5'</span> },
+  center: { flex: <span class="number">1</span>, justifyContent: <span class="string">'center'</span>, alignItems: <span class="string">'center'</span> },
+  titulo: { fontSize: <span class="number">28</span>, fontWeight: <span class="string">'bold'</span>, padding: <span class="number">20</span> },
+  input: { marginHorizontal: <span class="number">20</span>, marginBottom: <span class="number">15</span>, padding: <span class="number">15</span>, backgroundColor: <span class="string">'white'</span>, borderRadius: <span class="number">10</span> },
+  card: { backgroundColor: <span class="string">'white'</span>, padding: <span class="number">20</span>, borderRadius: <span class="number">15</span>, marginHorizontal: <span class="number">20</span>, marginBottom: <span class="number">15</span> },
+  nome: { fontSize: <span class="number">18</span>, fontWeight: <span class="string">'bold'</span> },
+  email: { fontSize: <span class="number">14</span>, color: <span class="string">'#666'</span>, marginTop: <span class="number">5</span> },
+  retryButton: { backgroundColor: <span class="string">'#28a745'</span>, padding: <span class="number">15</span>, borderRadius: <span class="number">10</span>, marginTop: <span class="number">20</span> },
+  retryText: { color: <span class="string">'white'</span>, fontWeight: <span class="string">'bold'</span> },
+});</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXERCICIO 4 -->
+            <div class="exercise-card" data-number="4">
+                <h4>Formulario de Cadastro Completo</h4>
+                <span class="difficulty difficulty-medium">Medio</span>
+
+                <p><strong>Objetivo:</strong> Criar um formulario com:</p>
+                <ul>
+                    <li>Campos: nome, email, senha, confirmar senha</li>
+                    <li>Validacao em tempo real</li>
+                    <li>Forca da senha (fraca/media/forte)</li>
+                    <li>Botao habilitado apenas quando tudo valido</li>
+                </ul>
+
+                <div class="solution-box">
+                    <div class="solution-header" onclick="toggleSolution(this)">
+                        <span>Ver Solucao</span>
+                        <span>+</span>
+                    </div>
+                    <div class="solution-content">
+                        <div class="code-block" data-lang="JavaScript">
+                            <code><span class="keyword">import</span> React, { useState, useMemo } <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } <span class="keyword">from</span> <span class="string">'react-native'</span>;
+
+<span class="keyword">export default function</span> <span class="function">FormularioCadastro</span>() {
+  <span class="keyword">const</span> [form, setForm] = <span class="function">useState</span>({ nome: <span class="string">''</span>, email: <span class="string">''</span>, senha: <span class="string">''</span>, confirmarSenha: <span class="string">''</span> });
+  <span class="keyword">const</span> [tocado, setTocado] = <span class="function">useState</span>({});
+  <span class="keyword">const</span> [cadastrado, setCadastrado] = <span class="function">useState</span>(<span class="keyword">null</span>);
+
+  <span class="keyword">const</span> validacoes = <span class="function">useMemo</span>(() => ({
+    nome: form.nome.length >= <span class="number">3</span>,
+    email: <span class="function">/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test</span>(form.email),
+    senha: form.senha.length >= <span class="number">6</span>,
+    confirmarSenha: form.senha === form.confirmarSenha && form.confirmarSenha !== <span class="string">''</span>,
+  }), [form]);
+
+  <span class="keyword">const</span> forcaSenha = <span class="function">useMemo</span>(() => {
+    <span class="keyword">let</span> pontos = <span class="number">0</span>;
+    <span class="keyword">if</span> (form.senha.length >= <span class="number">6</span>) pontos++;
+    <span class="keyword">if</span> (form.senha.length >= <span class="number">10</span>) pontos++;
+    <span class="keyword">if</span> (<span class="function">/[A-Z]/.test</span>(form.senha)) pontos++;
+    <span class="keyword">if</span> (<span class="function">/[0-9]/.test</span>(form.senha)) pontos++;
+    <span class="keyword">if</span> (<span class="function">/[^A-Za-z0-9]/.test</span>(form.senha)) pontos++;
+    <span class="keyword">if</span> (pontos <= <span class="number">2</span>) <span class="keyword">return</span> { nivel: <span class="string">'Fraca'</span>, cor: <span class="string">'#dc3545'</span> };
+    <span class="keyword">if</span> (pontos <= <span class="number">3</span>) <span class="keyword">return</span> { nivel: <span class="string">'Media'</span>, cor: <span class="string">'#ffc107'</span> };
+    <span class="keyword">return</span> { nivel: <span class="string">'Forte'</span>, cor: <span class="string">'#28a745'</span> };
+  }, [form.senha]);
+
+  <span class="keyword">const</span> formValido = Object.<span class="function">values</span>(validacoes).<span class="function">every</span>(v => v);
+
+  <span class="keyword">const</span> <span class="function">cadastrar</span> = () => {
+    <span class="keyword">if</span> (!formValido) <span class="keyword">return</span>;
+    <span class="function">setCadastrado</span>({ nome: form.nome, email: form.email });
+  };
+
+  <span class="keyword">if</span> (cadastrado) <span class="keyword">return</span> (
+    &lt;<span class="function">View</span> style={styles.sucessoContainer}&gt;
+      &lt;<span class="function">Text</span> style={styles.sucessoIcon}&gt;✓&lt;/<span class="function">Text</span>&gt;
+      &lt;<span class="function">Text</span> style={styles.sucessoTitulo}&gt;Cadastro realizado!&lt;/<span class="function">Text</span>&gt;
+      &lt;<span class="function">Text</span>&gt;Bem-vindo, {cadastrado.nome}!&lt;/<span class="function">Text</span>&gt;
+    &lt;/<span class="function">View</span>&gt;
+  );
+
+  <span class="keyword">return</span> (
+    &lt;<span class="function">ScrollView</span> style={styles.container} contentContainerStyle={styles.content}&gt;
+      &lt;<span class="function">Text</span> style={styles.titulo}&gt;Criar Conta&lt;/<span class="function">Text</span>&gt;
+      {['nome', 'email', 'senha', 'confirmarSenha'].<span class="function">map</span>((campo) => (
+        &lt;<span class="function">View</span> key={campo} style={styles.inputGroup}&gt;
+          &lt;<span class="function">TextInput</span>
+            style={[styles.input, tocado[campo] && !validacoes[campo] && styles.inputErro]}
+            placeholder={campo === <span class="string">'confirmarSenha'</span> ? <span class="string">'Confirmar senha'</span> : campo.<span class="function">charAt</span>(<span class="number">0</span>).<span class="function">toUpperCase</span>() + campo.<span class="function">slice</span>(<span class="number">1</span>)}
+            value={form[campo]}
+            onChangeText={(v) => <span class="function">setForm</span>({ ...form, [campo]: v })}
+            onBlur={() => <span class="function">setTocado</span>({ ...tocado, [campo]: <span class="keyword">true</span> })}
+            secureTextEntry={campo.<span class="function">includes</span>(<span class="string">'senha'</span>)}
+            keyboardType={campo === <span class="string">'email'</span> ? <span class="string">'email-address'</span> : <span class="string">'default'</span>}
+          /&gt;
+        &lt;/<span class="function">View</span>&gt;
+      ))}
+      &lt;<span class="function">TouchableOpacity</span> style={[styles.botao, !formValido && styles.botaoDesabilitado]} onPress={cadastrar} disabled={!formValido}&gt;
+        &lt;<span class="function">Text</span> style={styles.botaoTexto}&gt;Cadastrar&lt;/<span class="function">Text</span>&gt;
+      &lt;/<span class="function">TouchableOpacity</span>&gt;
+    &lt;/<span class="function">ScrollView</span>&gt;
+  );
+}
+
+<span class="keyword">const</span> styles = StyleSheet.<span class="function">create</span>({
+  container: { flex: <span class="number">1</span>, backgroundColor: <span class="string">'#f5f5f5'</span> },
+  content: { padding: <span class="number">20</span> },
+  titulo: { fontSize: <span class="number">28</span>, fontWeight: <span class="string">'bold'</span>, marginBottom: <span class="number">30</span> },
+  inputGroup: { marginBottom: <span class="number">20</span> },
+  input: { backgroundColor: <span class="string">'white'</span>, padding: <span class="number">15</span>, borderRadius: <span class="number">10</span>, borderWidth: <span class="number">1</span>, borderColor: <span class="string">'#ddd'</span> },
+  inputErro: { borderColor: <span class="string">'#dc3545'</span> },
+  botao: { backgroundColor: <span class="string">'#28a745'</span>, padding: <span class="number">18</span>, borderRadius: <span class="number">10</span>, alignItems: <span class="string">'center'</span> },
+  botaoDesabilitado: { backgroundColor: <span class="string">'#ccc'</span> },
+  botaoTexto: { color: <span class="string">'white'</span>, fontSize: <span class="number">18</span>, fontWeight: <span class="string">'bold'</span> },
+  sucessoContainer: { flex: <span class="number">1</span>, justifyContent: <span class="string">'center'</span>, alignItems: <span class="string">'center'</span> },
+  sucessoIcon: { fontSize: <span class="number">80</span>, color: <span class="string">'#28a745'</span> },
+  sucessoTitulo: { fontSize: <span class="number">28</span>, fontWeight: <span class="string">'bold'</span>, marginVertical: <span class="number">10</span> },
+});</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXERCICIO: JOGO DE ADIVINHACAO -->
+            <div class="exercise-card" data-number="5">
+                <h4>Jogo de Adivinhacao - Quente ou Frio</h4>
+                <span class="difficulty difficulty-medium">Medio</span>
+
+                <p><strong>Objetivo:</strong> Criar um jogo onde:</p>
+                <ul>
+                    <li>O app gera um numero aleatorio entre 0 e 100</li>
+                    <li>O jogador tenta adivinhar o numero</li>
+                    <li>A cada tentativa, informa se e maior ou menor</li>
+                    <li>Sistema de dicas "Quente ou Frio"</li>
+                </ul>
+
+                <p><strong>Sistema de Dicas:</strong></p>
+                <table>
+                    <tr>
+                        <th>Diferenca</th>
+                        <th>Mensagem</th>
+                        <th>Cor</th>
+                    </tr>
+                    <tr>
+                        <td>Ate 5</td>
+                        <td>Muito quente!</td>
+                        <td style="background:#dc3545;color:white;">Vermelho</td>
+                    </tr>
+                    <tr>
+                        <td>Ate 10</td>
+                        <td>Quente!</td>
+                        <td style="background:#fd7e14;color:white;">Laranja</td>
+                    </tr>
+                    <tr>
+                        <td>Ate 20</td>
+                        <td>Morno</td>
+                        <td style="background:#ffc107;">Amarelo</td>
+                    </tr>
+                    <tr>
+                        <td>Maior que 20</td>
+                        <td>Frio</td>
+                        <td style="background:#0eafdb;color:white;">Azul</td>
+                    </tr>
+                    <tr>
+                        <td>0 (acertou)</td>
+                        <td>Parabens!</td>
+                        <td style="background:#28a745;color:white;">Verde</td>
+                    </tr>
+                </table>
+
+                <p><strong>Dica:</strong> Use <code>Math.abs(palpite - numeroSecreto)</code> para calcular a diferenca.
+                </p>
+
+                <div class="solution-box">
+                    <div class="solution-header" onclick="toggleSolution(this)">
+                        <span>Ver Solucao</span>
+                        <span>+</span>
+                    </div>
+                    <div class="solution-content">
+                        <div class="code-block" data-lang="JavaScript">
+                            <code><span class="keyword">import</span> React, { useState } <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } <span class="keyword">from</span> <span class="string">'react-native'</span>;
+
+<span class="keyword">export default function</span> <span class="function">JogoAdivinhacao</span>() {
+  <span class="keyword">const</span> [numeroSecreto, setNumeroSecreto] = <span class="function">useState</span>(<span class="function">Math.floor</span>(<span class="function">Math.random</span>() * <span class="number">101</span>));
+  <span class="keyword">const</span> [palpite, setPalpite] = <span class="function">useState</span>(<span class="string">''</span>);
+  <span class="keyword">const</span> [mensagem, setMensagem] = <span class="function">useState</span>(<span class="string">'Tente adivinhar o numero!'</span>);
+  <span class="keyword">const</span> [corMensagem, setCorMensagem] = <span class="function">useState</span>(<span class="string">'#1a2639'</span>);
+  <span class="keyword">const</span> [tentativas, setTentativas] = <span class="function">useState</span>(<span class="number">0</span>);
+  <span class="keyword">const</span> [acertou, setAcertou] = <span class="function">useState</span>(<span class="keyword">false</span>);
+
+  <span class="keyword">const</span> <span class="function">obterDica</span> = (diferenca) => {
+    <span class="keyword">if</span> (diferenca === <span class="number">0</span>) <span class="keyword">return</span> { msg: <span class="string">'Parabens! Voce acertou!'</span>, cor: <span class="string">'#28a745'</span> };
+    <span class="keyword">if</span> (diferenca <= <span class="number">5</span>) <span class="keyword">return</span> { msg: <span class="string">'MUITO QUENTE!'</span>, cor: <span class="string">'#dc3545'</span> };
+    <span class="keyword">if</span> (diferenca <= <span class="number">10</span>) <span class="keyword">return</span> { msg: <span class="string">'Quente!'</span>, cor: <span class="string">'#fd7e14'</span> };
+    <span class="keyword">if</span> (diferenca <= <span class="number">20</span>) <span class="keyword">return</span> { msg: <span class="string">'Morno'</span>, cor: <span class="string">'#ffc107'</span> };
+    <span class="keyword">return</span> { msg: <span class="string">'Frio'</span>, cor: <span class="string">'#0eafdb'</span> };
+  };
+
+  <span class="keyword">const</span> <span class="function">verificarPalpite</span> = () => {
+    <span class="keyword">const</span> palpiteNum = <span class="function">parseInt</span>(palpite);
+    
+    <span class="keyword">if</span> (<span class="function">isNaN</span>(palpiteNum) || palpiteNum < <span class="number">0</span> || palpiteNum > <span class="number">100</span>) {
+      Alert.<span class="function">alert</span>(<span class="string">'Erro'</span>, <span class="string">'Digite um numero entre 0 e 100!'</span>);
+      <span class="keyword">return</span>;
+    }
+
+    <span class="function">setTentativas</span>(tentativas + <span class="number">1</span>);
+    
+    <span class="keyword">const</span> diferenca = <span class="function">Math.abs</span>(palpiteNum - numeroSecreto);
+    <span class="keyword">const</span> dica = <span class="function">obterDica</span>(diferenca);
+    
+    <span class="function">setMensagem</span>(dica.msg);
+    <span class="function">setCorMensagem</span>(dica.cor);
+    
+    <span class="keyword">if</span> (diferenca === <span class="number">0</span>) {
+      <span class="function">setAcertou</span>(<span class="keyword">true</span>);
+    } <span class="keyword">else if</span> (palpiteNum < numeroSecreto) {
+      <span class="function">setMensagem</span>(dica.msg + <span class="string">' - Tente um numero MAIOR'</span>);
+    } <span class="keyword">else</span> {
+      <span class="function">setMensagem</span>(dica.msg + <span class="string">' - Tente um numero MENOR'</span>);
+    }
+    
+    <span class="function">setPalpite</span>(<span class="string">''</span>);
+  };
+
+  <span class="keyword">const</span> <span class="function">reiniciarJogo</span> = () => {
+    <span class="function">setNumeroSecreto</span>(<span class="function">Math.floor</span>(<span class="function">Math.random</span>() * <span class="number">101</span>));
+    <span class="function">setPalpite</span>(<span class="string">''</span>);
+    <span class="function">setMensagem</span>(<span class="string">'Tente adivinhar o numero!'</span>);
+    <span class="function">setCorMensagem</span>(<span class="string">'#1a2639'</span>);
+    <span class="function">setTentativas</span>(<span class="number">0</span>);
+    <span class="function">setAcertou</span>(<span class="keyword">false</span>);
+  };
+
+  <span class="keyword">return</span> (
+    &lt;<span class="function">View</span> style={styles.container}&gt;
+      &lt;<span class="function">Text</span> style={styles.titulo}&gt;Jogo de Adivinhacao&lt;/<span class="function">Text</span>&gt;
+      &lt;<span class="function">Text</span> style={styles.subtitulo}&gt;Adivinhe o numero entre 0 e 100&lt;/<span class="function">Text</span>&gt;
+      
+      &lt;<span class="function">View</span> style={[styles.mensagemBox, { borderColor: corMensagem }]}&gt;
+        &lt;<span class="function">Text</span> style={[styles.mensagem, { color: corMensagem }]}&gt;{mensagem}&lt;/<span class="function">Text</span>&gt;
+      &lt;/<span class="function">View</span>&gt;
+      
+      &lt;<span class="function">Text</span> style={styles.tentativas}&gt;Tentativas: {tentativas}&lt;/<span class="function">Text</span>&gt;
+      
+      {!acertou ? (
+        &lt;<span class="function">View</span> style={styles.inputContainer}&gt;
+          &lt;<span class="function">TextInput</span>
+            style={styles.input}
+            placeholder=<span class="string">"Seu palpite"</span>
+            value={palpite}
+            onChangeText={setPalpite}
+            keyboardType=<span class="string">"numeric"</span>
+            maxLength={<span class="number">3</span>}
+          /&gt;
+          &lt;<span class="function">TouchableOpacity</span> style={styles.botao} onPress={verificarPalpite}&gt;
+            &lt;<span class="function">Text</span> style={styles.botaoTexto}&gt;Tentar&lt;/<span class="function">Text</span>&gt;
+          &lt;/<span class="function">TouchableOpacity</span>&gt;
+        &lt;/<span class="function">View</span>&gt;
+      ) : (
+        &lt;<span class="function">TouchableOpacity</span> style={styles.botaoReiniciar} onPress={reiniciarJogo}&gt;
+          &lt;<span class="function">Text</span> style={styles.botaoTexto}&gt;Jogar Novamente&lt;/<span class="function">Text</span>&gt;
+        &lt;/<span class="function">TouchableOpacity</span>&gt;
+      )}
+    &lt;/<span class="function">View</span>&gt;
+  );
+}
+
+<span class="keyword">const</span> styles = StyleSheet.<span class="function">create</span>({
+  container: {
+    flex: <span class="number">1</span>,
+    padding: <span class="number">20</span>,
+    justifyContent: <span class="string">'center'</span>,
+    alignItems: <span class="string">'center'</span>,
+    backgroundColor: <span class="string">'#f5f5f5'</span>,
+  },
+  titulo: {
+    fontSize: <span class="number">28</span>,
+    fontWeight: <span class="string">'bold'</span>,
+    color: <span class="string">'#1a2639'</span>,
+    marginBottom: <span class="number">10</span>,
+  },
+  subtitulo: {
+    fontSize: <span class="number">16</span>,
+    color: <span class="string">'#666'</span>,
+    marginBottom: <span class="number">30</span>,
+  },
+  mensagemBox: {
+    padding: <span class="number">20</span>,
+    borderRadius: <span class="number">15</span>,
+    borderWidth: <span class="number">3</span>,
+    marginBottom: <span class="number">20</span>,
+    minWidth: <span class="number">280</span>,
+    alignItems: <span class="string">'center'</span>,
+  },
+  mensagem: {
+    fontSize: <span class="number">18</span>,
+    fontWeight: <span class="string">'bold'</span>,
+    textAlign: <span class="string">'center'</span>,
+  },
+  tentativas: {
+    fontSize: <span class="number">14</span>,
+    color: <span class="string">'#666'</span>,
+    marginBottom: <span class="number">20</span>,
+  },
+  inputContainer: {
+    flexDirection: <span class="string">'row'</span>,
+    gap: <span class="number">10</span>,
+  },
+  input: {
+    width: <span class="number">120</span>,
+    padding: <span class="number">15</span>,
+    backgroundColor: <span class="string">'white'</span>,
+    borderRadius: <span class="number">10</span>,
+    fontSize: <span class="number">18</span>,
+    textAlign: <span class="string">'center'</span>,
+  },
+  botao: {
+    backgroundColor: <span class="string">'#0eafdb'</span>,
+    padding: <span class="number">15</span>,
+    borderRadius: <span class="number">10</span>,
+    justifyContent: <span class="string">'center'</span>,
+  },
+  botaoReiniciar: {
+    backgroundColor: <span class="string">'#28a745'</span>,
+    padding: <span class="number">15</span>,
+    borderRadius: <span class="number">10</span>,
+  },
+  botaoTexto: {
+    color: <span class="string">'white'</span>,
+    fontSize: <span class="number">16</span>,
+    fontWeight: <span class="string">'bold'</span>,
+  },
+});</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- NIVEL AVANCADO -->
+            <h3 style="color: #dc3545; border-bottom: 3px solid #dc3545; padding-bottom: 0.5rem;">Nivel Avancado</h3>
+
+            <!-- EXERCICIO 6 -->
+            <div class="exercise-card" data-number="6">
+                <h4>Hook Customizado useFetch com Cache</h4>
+                <span class="difficulty difficulty-hard">Dificil</span>
+
+                <p><strong>Objetivo:</strong> Criar um hook reutilizavel que:</p>
+                <ul>
+                    <li>Busca dados de uma URL</li>
+                    <li>Implementa cache com TTL configuravel</li>
+                    <li>Retorna dados do cache se validos</li>
+                    <li>Permite forcar refresh ignorando cache</li>
+                </ul>
+
+                <div class="solution-box">
+                    <div class="solution-header" onclick="toggleSolution(this)">
+                        <span>Ver Solucao</span>
+                        <span>+</span>
+                    </div>
+                    <div class="solution-content">
+                        <div class="code-block" data-lang="JavaScript">
+                            <code><span class="keyword">import</span> { useState, useEffect, useCallback, useRef } <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> AsyncStorage <span class="keyword">from</span> <span class="string">'@react-native-async-storage/async-storage'</span>;
+
+<span class="keyword">function</span> <span class="function">useFetch</span>(url, options = {}) {
+  <span class="keyword">const</span> { ttl = <span class="number">5</span> * <span class="number">60</span> * <span class="number">1000</span>, enabled = <span class="keyword">true</span> } = options;
+  
+  <span class="keyword">const</span> [data, setData] = <span class="function">useState</span>(<span class="keyword">null</span>);
+  <span class="keyword">const</span> [loading, setLoading] = <span class="function">useState</span>(<span class="keyword">true</span>);
+  <span class="keyword">const</span> [error, setError] = <span class="function">useState</span>(<span class="keyword">null</span>);
+  <span class="keyword">const</span> [isFromCache, setIsFromCache] = <span class="function">useState</span>(<span class="keyword">false</span>);
+  
+  <span class="keyword">const</span> requestIdRef = <span class="function">useRef</span>(<span class="number">0</span>);
+
+  <span class="keyword">const</span> <span class="function">fetchData</span> = <span class="function">useCallback</span>(<span class="keyword">async</span> (forceRefresh = <span class="keyword">false</span>) => {
+    <span class="keyword">const</span> currentRequestId = ++requestIdRef.current;
+    setLoading(<span class="keyword">true</span>);
+    setError(<span class="keyword">null</span>);
+
+    <span class="keyword">try</span> {
+      <span class="keyword">if</span> (!forceRefresh) {
+        <span class="keyword">const</span> cached = <span class="keyword">await</span> AsyncStorage.<span class="function">getItem</span>(url);
+        <span class="keyword">if</span> (cached) {
+          <span class="keyword">const</span> entry = JSON.<span class="function">parse</span>(cached);
+          <span class="keyword">const</span> isExpired = Date.<span class="function">now</span>() - entry.timestamp > ttl;
+          <span class="keyword">if</span> (!isExpired && currentRequestId === requestIdRef.current) {
+            <span class="function">setData</span>(entry.data);
+            <span class="function">setIsFromCache</span>(<span class="keyword">true</span>);
+            setLoading(<span class="keyword">false</span>);
+            <span class="keyword">return</span>;
+          }
+        }
+      }
+
+      <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="function">fetch</span>(url);
+      <span class="keyword">if</span> (!response.ok) <span class="keyword">throw new</span> <span class="function">Error</span>(<span class="string">`HTTP ${response.status}`</span>);
+      <span class="keyword">const</span> result = <span class="keyword">await</span> response.<span class="function">json</span>();
+      
+      <span class="keyword">if</span> (currentRequestId !== requestIdRef.current) <span class="keyword">return</span>;
+      
+      <span class="keyword">await</span> AsyncStorage.<span class="function">setItem</span>(url, JSON.<span class="function">stringify</span>({ data: result, timestamp: Date.<span class="function">now</span>() }));
+      <span class="function">setData</span>(result);
+      <span class="function">setIsFromCache</span>(<span class="keyword">false</span>);
+    } <span class="keyword">catch</span> (err) {
+      <span class="keyword">if</span> (currentRequestId === requestIdRef.current) {
+        <span class="function">setError</span>(err.message);
+      }
+    } <span class="keyword">finally</span> {
+      <span class="keyword">if</span> (currentRequestId === requestIdRef.current) {
+        setLoading(<span class="keyword">false</span>);
+      }
+    }
+  }, [url, ttl]);
+
+  <span class="function">useEffect</span>(() => {
+    <span class="keyword">if</span> (enabled) <span class="function">fetchData</span>();
+  }, [enabled, fetchData]);
+
+  <span class="keyword">return</span> {
+    data, loading, error, isFromCache,
+    refresh: () => <span class="function">fetchData</span>(<span class="keyword">true</span>),
+    invalidate: <span class="keyword">async</span> () => { <span class="keyword">await</span> AsyncStorage.<span class="function">removeItem</span>(url); <span class="keyword">await</span> <span class="function">fetchData</span>(<span class="keyword">true</span>); },
+  };
+}
+
+<span class="comment">// Uso</span>
+<span class="keyword">function</span> <span class="function">UsersList</span>() {
+  <span class="keyword">const</span> { data: users, loading, error, isFromCache, refresh } = <span class="function">useFetch</span>(
+    <span class="string">'https://jsonplaceholder.typicode.com/users'</span>,
+    { ttl: <span class="number">10</span> * <span class="number">60</span> * <span class="number">1000</span> }
+  );
+
+  <span class="keyword">if</span> (loading) <span class="keyword">return</span> &lt;<span class="function">Text</span>&gt;Carregando...&lt;/<span class="function">Text</span>&gt;;
+  <span class="keyword">if</span> (error) <span class="keyword">return</span> &lt;<span class="function">Text</span>&gt;Erro: {error}&lt;/<span class="function">Text</span>&gt;;
+
+  <span class="keyword">return</span> (
+    &lt;&gt;
+      {isFromCache && &lt;<span class="function">Text</span>&gt;Dados do cache&lt;/<span class="function">Text</span>&gt;}
+      &lt;<span class="function">FlatList</span> data={users} keyExtractor={(i) => i.id} renderItem={({ item }) => &lt;<span class="function">Text</span>&gt;{item.name}&lt;/<span class="function">Text</span>&gt;} /&gt;
+      &lt;<span class="function">Button</span> title=<span class="string">"Atualizar"</span> onPress={refresh} /&gt;
+    &lt;/&gt;
+  );
+}</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXERCICIO 7 -->
+            <div class="exercise-card" data-number="7">
+                <h4>Sistema de Autenticacao com Context</h4>
+                <span class="difficulty difficulty-hard">Dificil</span>
+
+                <p><strong>Objetivo:</strong> Criar um sistema completo que:</p>
+                <ul>
+                    <li>Gerencia estado de autenticacao global</li>
+                    <li>Persiste token no AsyncStorage</li>
+                    <li>Protege rotas privadas</li>
+                    <li>Implementa login/logout</li>
+                    <li>Verifica token ao iniciar o app</li>
+                </ul>
+
+                <div class="solution-box">
+                    <div class="solution-header" onclick="toggleSolution(this)">
+                        <span>Ver Solucao</span>
+                        <span>+</span>
+                    </div>
+                    <div class="solution-content">
+                        <div class="code-block" data-lang="JavaScript">
+                            <code><span class="comment">// contexts/AuthContext.js</span>
+<span class="keyword">import</span> React, { createContext, useContext, useState, useEffect, useCallback } <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> AsyncStorage <span class="keyword">from</span> <span class="string">'@react-native-async-storage/async-storage'</span>;
+
+<span class="keyword">const</span> AuthContext = <span class="function">createContext</span>(<span class="keyword">undefined</span>);
+
+<span class="keyword">export function</span> <span class="function">AuthProvider</span>({ children }) {
+  <span class="keyword">const</span> [user, setUser] = <span class="function">useState</span>(<span class="keyword">null</span>);
+  <span class="keyword">const</span> [token, setToken] = <span class="function">useState</span>(<span class="keyword">null</span>);
+  <span class="keyword">const</span> [loading, setLoading] = <span class="function">useState</span>(<span class="keyword">true</span>);
+
+  <span class="function">useEffect</span>(() => {
+    <span class="keyword">async function</span> <span class="function">loadStoredAuth</span>() {
+      <span class="keyword">try</span> {
+        <span class="keyword">const</span> [storedToken, storedUser] = <span class="keyword">await</span> Promise.<span class="function">all</span>([
+          AsyncStorage.<span class="function">getItem</span>(<span class="string">'@auth:token'</span>),
+          AsyncStorage.<span class="function">getItem</span>(<span class="string">'@auth:user'</span>),
+        ]);
+        <span class="keyword">if</span> (storedToken && storedUser) {
+          <span class="function">setToken</span>(storedToken);
+          <span class="function">setUser</span>(JSON.<span class="function">parse</span>(storedUser));
+        }
+      } <span class="keyword">finally</span> {
+        setLoading(<span class="keyword">false</span>);
+      }
+    }
+    <span class="function">loadStoredAuth</span>();
+  }, []);
+
+  <span class="keyword">const</span> <span class="function">login</span> = <span class="keyword">async</span> (email, password) => {
+    <span class="keyword">try</span> {
+      <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="function">fetch</span>(<span class="string">'https://api.seuservidor.com/auth/login'</span>, {
+        method: <span class="string">'POST'</span>,
+        headers: { <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span> },
+        body: JSON.<span class="function">stringify</span>({ email, password }),
+      });
+      <span class="keyword">if</span> (!response.ok) <span class="keyword">return</span> <span class="keyword">false</span>;
+      <span class="keyword">const</span> data = <span class="keyword">await</span> response.<span class="function">json</span>();
+      <span class="keyword">await</span> Promise.<span class="function">all</span>([
+        AsyncStorage.<span class="function">setItem</span>(<span class="string">'@auth:token'</span>, data.token),
+        AsyncStorage.<span class="function">setItem</span>(<span class="string">'@auth:user'</span>, JSON.<span class="function">stringify</span>(data.user)),
+      ]);
+      <span class="function">setToken</span>(data.token);
+      <span class="function">setUser</span>(data.user);
+      <span class="keyword">return</span> <span class="keyword">true</span>;
+    } <span class="keyword">catch</span> {
+      <span class="keyword">return</span> <span class="keyword">false</span>;
+    }
+  };
+
+  <span class="keyword">const</span> <span class="function">logout</span> = <span class="keyword">async</span> () => {
+    <span class="keyword">await</span> Promise.<span class="function">all</span>([
+      AsyncStorage.<span class="function">removeItem</span>(<span class="string">'@auth:token'</span>),
+      AsyncStorage.<span class="function">removeItem</span>(<span class="string">'@auth:user'</span>),
+    ]);
+    <span class="function">setToken</span>(<span class="keyword">null</span>);
+    <span class="function">setUser</span>(<span class="keyword">null</span>);
+  };
+
+  <span class="keyword">return</span> (
+    &lt;<span class="function">AuthContext.Provider</span> value={{ user, token, loading, login, logout, isAuthenticated: !!token }}&gt;
+      {children}
+    &lt;/<span class="function">AuthContext.Provider</span>&gt;
+  );
+}
+
+<span class="keyword">export const</span> <span class="function">useAuth</span> = () => {
+  <span class="keyword">const</span> context = <span class="function">useContext</span>(AuthContext);
+  <span class="keyword">if</span> (!context) <span class="keyword">throw new</span> <span class="function">Error</span>(<span class="string">'useAuth deve ser usado dentro de AuthProvider'</span>);
+  <span class="keyword">return</span> context;
+};
+
+<span class="comment">// Uso no App.js</span>
+<span class="keyword">function</span> <span class="function">App</span>() {
+  <span class="keyword">return</span> (
+    &lt;<span class="function">AuthProvider</span>&gt;
+      &lt;<span class="function">NavigationContainer</span>&gt;
+        &lt;<span class="function">RootNavigator</span> /&gt;
+      &lt;/<span class="function">NavigationContainer</span>&gt;
+    &lt;/<span class="function">AuthProvider</span>&gt;
+  );
+}
+
+<span class="keyword">function</span> <span class="function">RootNavigator</span>() {
+  <span class="keyword">const</span> { isAuthenticated, loading } = <span class="function">useAuth</span>();
+  <span class="keyword">if</span> (loading) <span class="keyword">return</span> &lt;<span class="function">LoadingScreen</span> /&gt;;
+  <span class="keyword">return</span> isAuthenticated ? &lt;<span class="function">AppStack</span> /&gt; : &lt;<span class="function">AuthStack</span> /&gt;;
+}</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- RODAPE -->
+        <footer>
+            <p><strong>React Native - Guia Completo</strong></p>
+            <p>Fundamentos + Avancado + Exercicios Praticos</p>
+            <p style="font-size: 1rem; opacity: 0.7; margin-top: 1rem;">
+                Versao 2026 fdcneto@gmail.com | 15 capitulos | 7 exercicios | 5 projetos guiados
+            </p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Funcao para toggle de acordeons
+        function toggleAccordion(header) {
+            const accordion = header.parentElement;
+            accordion.classList.toggle('open');
+        }
+
+        // Funcao para toggle de solucoes
+        function toggleSolution(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('span:last-child');
+
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+                icon.textContent = '+';
+            } else {
+                content.classList.add('show');
+                icon.textContent = '−';
+            }
+        }
+
+        // Navegacao suave
+        document.querySelectorAll('.progress-step').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                    // Atualiza estado ativo
+                    document.querySelectorAll('.progress-step').forEach(s => s.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Destaca secao atual na barra de progresso
+        const sections = document.querySelectorAll('section[id]');
+        const progressSteps = document.querySelectorAll('.progress-step');
+
+        function updateActiveStep() {
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.pageYOffset >= sectionTop - 200) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            progressSteps.forEach(step => {
+                step.classList.remove('active');
+                if (step.getAttribute('href') === '#' + currentSection) {
+                    step.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveStep);
+
+        // Checklist interativo
+        document.querySelectorAll('.checklist-item input').forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                this.closest('.checklist-item').classList.toggle('checked', this.checked);
+            });
+        });
+    </script>
+</body>
+
+</html>

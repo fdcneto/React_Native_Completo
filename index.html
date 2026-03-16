@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Native - Guia Completo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: white;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 80%, rgba(14, 175, 219, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(118, 75, 162, 0.1) 0%, transparent 40%);
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Floating Elements */
+        .floating-shapes {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #0eafdb, #667eea);
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            top: 60%;
+            right: 10%;
+            animation-delay: -5s;
+        }
+
+        .shape:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            bottom: 20%;
+            left: 20%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .react-logo {
+            width: 80px;
+            height: 80px;
+            animation: spin 20s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .title {
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #0eafdb 0%, #667eea 50%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 0.5rem;
+        }
+
+        /* Stats */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .stat {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.5rem 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .stat:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #0eafdb, #667eea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.3rem;
+        }
+
+        /* CTA Button */
+        .cta-container {
+            text-align: center;
+            margin: 2.5rem 0;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, #0eafdb 0%, #667eea 100%);
+            color: white;
+            padding: 1.2rem 3rem;
+            border-radius: 3rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(14, 175, 219, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(14, 175, 219, 0.4);
+        }
+
+        .cta-icon {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover .cta-icon {
+            transform: translateX(5px);
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(14, 175, 219, 0.3);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, rgba(14, 175, 219, 0.2), rgba(102, 126, 234, 0.2));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-desc {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.6;
+        }
+
+        /* Content List */
+        .content-section {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .content-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .content-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 0.75rem;
+            transition: background 0.3s ease;
+        }
+
+        .content-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .content-number {
+            background: linear-gradient(135deg, #0eafdb, #667eea);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .content-text {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .footer-link {
+            color: #0eafdb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: #667eea;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+            padding: 0.3rem 0.75rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-left: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .stats {
+                gap: 1rem;
+            }
+
+            .stat {
+                padding: 1rem 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .cta-button {
+                padding: 1rem 2rem;
+                font-size: 1.1rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .react-logo {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0.5;
+            animation: bounce 2s ease-in-out infinite;
+            z-index: 100;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        .scroll-indicator span {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Part Labels */
+        .part-label {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .part-label.fundamentos { background: rgba(14, 175, 219, 0.2); color: #0eafdb; }
+        .part-label.avancado { background: rgba(102, 126, 234, 0.2); color: #667eea; }
+        .part-label.exercicios { background: rgba(40, 167, 69, 0.2); color: #28a745; }
+    </style>
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="bg-animation"></div>
+    
+    <!-- Floating Shapes -->
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo-container">
+                <svg class="react-logo" viewBox="-11.5 -10.232 23 20.463">
+                    <circle r="2.05" fill="#61dafb"/>
+                    <g stroke="#61dafb" fill="none">
+                        <ellipse rx="11" ry="4.2"/>
+                        <ellipse rx="11" ry="4.2" transform="rotate(60)"/>
+                        <ellipse rx="11" ry="4.2" transform="rotate(120)"/>
+                    </g>
+                </svg>
+                <h1 class="title">React Native</h1>
+            </div>
+            <p class="subtitle">Guia Completo do Zero ao Profissional</p>
+        </header>
+
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">15</div>
+                <div class="stat-label">Capitulos</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">7</div>
+                <div class="stat-label">Exercicios</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Projetos</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Pratico</div>
+            </div>
+        </div>
+
+        <!-- CTA Button -->
+        <div class="cta-container">
+            <a href="React_Native_Completo.html" class="cta-button">
+                <span>Abrir Guia Completo</span>
+                <svg class="cta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+            </a>
+        </div>
+
+        <!-- Features -->
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3 class="feature-title">100% Nativo</h3>
+                <p class="feature-desc">Componentes nativos reais para iOS e Android, nao WebView. Performance proxima ao nativo puro.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚛️</div>
+                <h3 class="feature-title">Baseado em React</h3>
+                <p class="feature-desc">Use seus conhecimentos de React para criar apps mobile. Mesmos conceitos de componentes, props e state.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3 class="feature-title">Nova Arquitetura</h3>
+                <p class="feature-desc">JSI, Fabric e TurboModules para performance otimizada. Renderizacao sincrona e type-safe.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">Projetos Reais</h3>
+                <p class="feature-desc">Clone do Instagram, App de Delivery, E-commerce e mais. Aprendizado com casos reais do mercado.</p>
+            </div>
+        </div>
+
+        <!-- Content Overview -->
+        <div class="content-section">
+            <h2 class="content-title">
+                <span>📚</span> Conteudo do Guia
+            </h2>
+            
+            <div style="margin-bottom: 1.5rem;">
+                <span class="part-label fundamentos">Parte 1</span>
+                <h4 style="color: #0eafdb; margin-bottom: 0.75rem;">Fundamentos</h4>
+                <div class="content-grid">
+                    <div class="content-item">
+                        <span class="content-number">1</span>
+                        <span class="content-text">Ambiente de Desenvolvimento</span>
+                    </div>
+                    <div class="content-item">
+                        <span class="content-number">2</span>
+                        <span class="content-text">Fundamentos (Bridge)</span>
+                    </div>
+                    <div class="content-item">
+                        <span class="content-number">3</span>
+                        <span class="content-text">Componentes</span>
+                    </div>
+                    <div class="content-item">
+                        <span class="content-number">4</span>
+                        <span class="content-text">Estado (State)</span>
+                    </div>
+                    <div class="content-item">
+                        <span class="content-number">5</span>
+                        <span class="content-text">Formularios</span>
+                    </div>
+                    <div class="content-item">
+                        <span class="content-number">6</span>
+                        <span class="content-text">Layout Flexbox</span>
+                    </div>
+                    <div class="content-item">
+                        <span class="content-number">7</span>
+                        <span class="content-text">Navegacao</span>
+                    </div>
+                    <div class="content-item">
+                        <span class="content-number">8</span>
+                        <span class="content-text">Hooks Avancados</span>
+                    </div>
+                    <div class="content-item">
+                        <span class="content-number">9</span>
+                        <span class="content-text">Consumo de APIs</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+                <span class="part-label avancado">Parte 2</span>
+                <h4 style="color: #667eea; margin-bottom: 0.75rem;">Avancado</h4>
+                <div class="content-grid">
+                    <div class="content-item">
+                        <span class="content-number">10</span>
+                        <span class="content-text">Nova Arquitetura</span>
+                    </div>
+                    <div class="content-item">
+                        <span class="content-number">11</span>
+                        <span class="content-text">Performance</span>
+                    </div>
+                    <div class="content-item">
+                        <span class="content-number">12</span>
+                        <span class="content-text">Animacoes</span>
+                    </div>
+                    <div class="content-item">
+                        <span class="content-number">13</span>
+                        <span class="content-text">Projetos Guiados</span>
+                    </div>
+                    <div class="content-item">
+                        <span class="content-number">14</span>
+                        <span class="content-text">Organizacao</span>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <span class="part-label exercicios">Parte 3</span>
+                <h4 style="color: #28a745; margin-bottom: 0.75rem;">Exercicios com Solucoes</h4>
+                <div class="content-grid">
+                    <div class="content-item">
+                        <span class="content-number">🎯</span>
+                        <span class="content-text">Contador com Limites</span>
+                    </div>
+                    <div class="content-item">
+                        <span class="content-number">🎯</span>
+                        <span class="content-text">Lista de Tarefas</span>
+                    </div>
+                    <div class="content-item">
+                        <span class="content-number">🎯</span>
+                        <span class="content-text">Busca de Usuarios API</span>
+                    </div>
+                    <div class="content-item">
+                        <span class="content-number">🎯</span>
+                        <span class="content-text">Formulario de Cadastro</span>
+                    </div>
+                    <div class="content-item">
+                        <span class="content-number">🎯</span>
+                        <span class="content-text">Jogo de Adivinhacao</span>
+                    </div>
+                    <div class="content-item">
+                        <span class="content-number">🎯</span>
+                        <span class="content-text">CRUD com Navegacao</span>
+                    </div>
+                    <div class="content-item">
+                        <span class="content-number">🎯</span>
+                        <span class="content-text">App de Noticias</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tech Stack -->
+        <div class="content-section">
+            <h2 class="content-title">
+                <span>🛠️</span> Tecnologias Abordadas
+            </h2>
+            <div class="content-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+                <div class="content-item" style="justify-content: center;">
+                    <span class="content-text">Expo</span>
+                </div>
+                <div class="content-item" style="justify-content: center;">
+                    <span class="content-text">React Navigation</span>
+                </div>
+                <div class="content-item" style="justify-content: center;">
+                    <span class="content-text">Reanimated 3</span>
+                </div>
+                <div class="content-item" style="justify-content: center;">
+                    <span class="content-text">FlatList</span>
+                </div>
+                <div class="content-item" style="justify-content: center;">
+                    <span class="content-text">AsyncStorage</span>
+                </div>
+                <div class="content-item" style="justify-content: center;">
+                    <span class="content-text">Axios</span>
+                </div>
+                <div class="content-item" style="justify-content: center;">
+                    <span class="content-text">React Query</span>
+                </div>
+                <div class="content-item" style="justify-content: center;">
+                    <span class="content-text">TurboModules</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p class="footer-text">
+                Criado com base nas aulas de <strong>Programacao Mobile</strong><br>
+                Instrutor: <strong>MSc. Renan Procopio</strong>
+            </p>
+            <p class="footer-text" style="margin-top: 1rem;">
+                <a href="React_Native_Completo.html" class="footer-link">Abrir Guia Completo</a>
+                &nbsp;•&nbsp;
+                <a href="https://reactnative.dev" target="_blank" class="footer-link">Documentacao Oficial</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Add entrance animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('.feature-card, .stat, .content-item');
+            elements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 50);
+            });
+        });
+    </script>
+</body>
+</html>
