@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>React Native - Guia Completo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -39,14 +41,19 @@
             width: 200%;
             height: 200%;
             background: radial-gradient(circle at 20% 80%, rgba(14, 175, 219, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 40%, rgba(118, 75, 162, 0.1) 0%, transparent 40%);
+                radial-gradient(circle at 80% 20%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(118, 75, 162, 0.1) 0%, transparent 40%);
             animation: rotate 30s linear infinite;
         }
 
         @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         /* Floating Elements */
@@ -93,8 +100,15 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(10deg); }
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-30px) rotate(10deg);
+            }
         }
 
         /* Main Container */
@@ -131,8 +145,13 @@
         }
 
         @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .title {
@@ -442,8 +461,15 @@
         }
 
         @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+            }
         }
 
         .scroll-indicator span {
@@ -463,15 +489,27 @@
             margin-bottom: 0.5rem;
         }
 
-        .part-label.fundamentos { background: rgba(14, 175, 219, 0.2); color: #0eafdb; }
-        .part-label.avancado { background: rgba(102, 126, 234, 0.2); color: #667eea; }
-        .part-label.exercicios { background: rgba(40, 167, 69, 0.2); color: #28a745; }
+        .part-label.fundamentos {
+            background: rgba(14, 175, 219, 0.2);
+            color: #0eafdb;
+        }
+
+        .part-label.avancado {
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+        }
+
+        .part-label.exercicios {
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+        }
     </style>
 </head>
+
 <body>
     <!-- Background Animation -->
     <div class="bg-animation"></div>
-    
+
     <!-- Floating Shapes -->
     <div class="floating-shapes">
         <div class="shape"></div>
@@ -484,11 +522,11 @@
         <header>
             <div class="logo-container">
                 <svg class="react-logo" viewBox="-11.5 -10.232 23 20.463">
-                    <circle r="2.05" fill="#61dafb"/>
+                    <circle r="2.05" fill="#61dafb" />
                     <g stroke="#61dafb" fill="none">
-                        <ellipse rx="11" ry="4.2"/>
-                        <ellipse rx="11" ry="4.2" transform="rotate(60)"/>
-                        <ellipse rx="11" ry="4.2" transform="rotate(120)"/>
+                        <ellipse rx="11" ry="4.2" />
+                        <ellipse rx="11" ry="4.2" transform="rotate(60)" />
+                        <ellipse rx="11" ry="4.2" transform="rotate(120)" />
                     </g>
                 </svg>
                 <h1 class="title">React Native</h1>
@@ -500,11 +538,11 @@
         <div class="stats">
             <div class="stat">
                 <div class="stat-number">15</div>
-                <div class="stat-label">Capitulos</div>
+                <div class="stat-label">Capítulos</div>
             </div>
             <div class="stat">
                 <div class="stat-number">7</div>
-                <div class="stat-label">Exercicios</div>
+                <div class="stat-label">Exercícios</div>
             </div>
             <div class="stat">
                 <div class="stat-number">5</div>
@@ -512,7 +550,7 @@
             </div>
             <div class="stat">
                 <div class="stat-number">100%</div>
-                <div class="stat-label">Pratico</div>
+                <div class="stat-label">Prático</div>
             </div>
         </div>
 
@@ -521,7 +559,8 @@
             <a href="React_Native_Completo.html" class="cta-button">
                 <span>Abrir Guia Completo</span>
                 <svg class="cta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
             </a>
         </div>
@@ -531,31 +570,35 @@
             <div class="feature-card">
                 <div class="feature-icon">📱</div>
                 <h3 class="feature-title">100% Nativo</h3>
-                <p class="feature-desc">Componentes nativos reais para iOS e Android, nao WebView. Performance proxima ao nativo puro.</p>
+                <p class="feature-desc">Componentes nativos reais para iOS e Android, não WebView. Performance proxima
+                    ao nativo puro.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">⚛️</div>
                 <h3 class="feature-title">Baseado em React</h3>
-                <p class="feature-desc">Use seus conhecimentos de React para criar apps mobile. Mesmos conceitos de componentes, props e state.</p>
+                <p class="feature-desc">Use seus conhecimentos de React para criar apps mobile. Mesmos conceitos de
+                    componentes, props e state.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🚀</div>
                 <h3 class="feature-title">Nova Arquitetura</h3>
-                <p class="feature-desc">JSI, Fabric e TurboModules para performance otimizada. Renderizacao sincrona e type-safe.</p>
+                <p class="feature-desc">JSI, Fabric e TurboModules para performance otimizada. Renderização síncrona e
+                    type-safe.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🎯</div>
                 <h3 class="feature-title">Projetos Reais</h3>
-                <p class="feature-desc">Clone do Instagram, App de Delivery, E-commerce e mais. Aprendizado com casos reais do mercado.</p>
+                <p class="feature-desc">Clone do Instagram, App de Delivery, E-commerce e mais. Aprendizado com casos
+                    reais do mercado.</p>
             </div>
         </div>
 
         <!-- Content Overview -->
         <div class="content-section">
             <h2 class="content-title">
-                <span>📚</span> Conteudo do Guia
+                <span>📚</span> Conteúdo do Guia
             </h2>
-            
+
             <div style="margin-bottom: 1.5rem;">
                 <span class="part-label fundamentos">Parte 1</span>
                 <h4 style="color: #0eafdb; margin-bottom: 0.75rem;">Fundamentos</h4>
@@ -578,7 +621,7 @@
                     </div>
                     <div class="content-item">
                         <span class="content-number">5</span>
-                        <span class="content-text">Formularios</span>
+                        <span class="content-text">Formulários</span>
                     </div>
                     <div class="content-item">
                         <span class="content-number">6</span>
@@ -586,11 +629,11 @@
                     </div>
                     <div class="content-item">
                         <span class="content-number">7</span>
-                        <span class="content-text">Navegacao</span>
+                        <span class="content-text">Navegação</span>
                     </div>
                     <div class="content-item">
                         <span class="content-number">8</span>
-                        <span class="content-text">Hooks Avancados</span>
+                        <span class="content-text">Hooks Avançados</span>
                     </div>
                     <div class="content-item">
                         <span class="content-number">9</span>
@@ -601,7 +644,7 @@
 
             <div style="margin-bottom: 1.5rem;">
                 <span class="part-label avancado">Parte 2</span>
-                <h4 style="color: #667eea; margin-bottom: 0.75rem;">Avancado</h4>
+                <h4 style="color: #667eea; margin-bottom: 0.75rem;">Avançado</h4>
                 <div class="content-grid">
                     <div class="content-item">
                         <span class="content-number">10</span>
@@ -613,7 +656,7 @@
                     </div>
                     <div class="content-item">
                         <span class="content-number">12</span>
-                        <span class="content-text">Animacoes</span>
+                        <span class="content-text">Animações</span>
                     </div>
                     <div class="content-item">
                         <span class="content-number">13</span>
@@ -621,14 +664,14 @@
                     </div>
                     <div class="content-item">
                         <span class="content-number">14</span>
-                        <span class="content-text">Organizacao</span>
+                        <span class="content-text">Organização</span>
                     </div>
                 </div>
             </div>
 
             <div>
                 <span class="part-label exercicios">Parte 3</span>
-                <h4 style="color: #28a745; margin-bottom: 0.75rem;">Exercicios com Solucoes</h4>
+                <h4 style="color: #28a745; margin-bottom: 0.75rem;">Exercícios com Soluções</h4>
                 <div class="content-grid">
                     <div class="content-item">
                         <span class="content-number">🎯</span>
@@ -640,23 +683,23 @@
                     </div>
                     <div class="content-item">
                         <span class="content-number">🎯</span>
-                        <span class="content-text">Busca de Usuarios API</span>
+                        <span class="content-text">Busca de Usuários API</span>
                     </div>
                     <div class="content-item">
                         <span class="content-number">🎯</span>
-                        <span class="content-text">Formulario de Cadastro</span>
+                        <span class="content-text">Formulário de Cadastro</span>
                     </div>
                     <div class="content-item">
                         <span class="content-number">🎯</span>
-                        <span class="content-text">Jogo de Adivinhacao</span>
+                        <span class="content-text">Jogo de Adivinhação</span>
                     </div>
                     <div class="content-item">
                         <span class="content-number">🎯</span>
-                        <span class="content-text">CRUD com Navegacao</span>
+                        <span class="content-text">CRUD com Navegação</span>
                     </div>
                     <div class="content-item">
                         <span class="content-number">🎯</span>
-                        <span class="content-text">App de Noticias</span>
+                        <span class="content-text">App de Notícias</span>
                     </div>
                 </div>
             </div>
@@ -699,12 +742,12 @@
         <footer>
             <p class="footer-text">
                 Criado com base nas aulas de <strong>Programacao Mobile</strong><br>
-                Instrutor: <strong>MSc. Renan Procopio</strong>
+                Uso estritamente para fins de estudo e aprendizado.
             </p>
             <p class="footer-text" style="margin-top: 1rem;">
                 <a href="React_Native_Completo.html" class="footer-link">Abrir Guia Completo</a>
                 &nbsp;•&nbsp;
-                <a href="https://reactnative.dev" target="_blank" class="footer-link">Documentacao Oficial</a>
+                <a href="https://reactnative.dev" target="_blank" class="footer-link">Documentação Oficial</a>
             </p>
         </footer>
     </div>
@@ -736,4 +779,5 @@
         });
     </script>
 </body>
+
 </html>
