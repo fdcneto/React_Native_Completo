@@ -176,12 +176,12 @@
         }
 
         .progress-bar-inner::-webkit-scrollbar {
-            height: 4px;
+            height: 15px;
         }
 
         .progress-bar-inner::-webkit-scrollbar-thumb {
             background: #0eafdb;
-            border-radius: 4px;
+            border-radius: 10px;
         }
 
         .progress-step {
@@ -931,7 +931,11 @@
                 exercícios práticos</div>
             <div class="stats">
                 <div class="stat"><strong>15</strong> capitulos</div>
-                <div class="stat"><strong>7</strong> exercicios</div>
+                <div class="stat">
+                    <strong>
+                        <a href="#exercicios" style="text-decoration: none; color: white" ;>7
+                    </strong> exercicios</a>
+                </div>
                 <div class="stat"><strong>5</strong> projetos guiados</div>
                 <div class="stat"><strong>100%</strong> prático</div>
             </div>
@@ -2389,7 +2393,7 @@ api.interceptors.request.<span class="function">use</span>(<span class="keyword"
         <!-- SECAO 12: ANIMACOES -->
         <!-- ===================================================== -->
         <section id="animacoes">
-            <h2>12. Animações Avancadas</h2>
+            <h2>12. Animações Avançadas</h2>
 
             <p class="destaque avançado">
                 Animações fluidas sao essenciais para uma experiência mobile premium.
@@ -2517,7 +2521,7 @@ api.interceptors.request.<span class="function">use</span>(<span class="keyword"
                     <p>Componentes podem ser usados em varias telas.</p>
                 </div>
                 <div class="info-card">
-                    <h4>Manutencao</h4>
+                    <h4>Manutenção</h4>
                     <p>Mais fácil de encontrar e corrigir problemas.</p>
                 </div>
             </div>
@@ -2534,14 +2538,528 @@ api.interceptors.request.<span class="function">use</span>(<span class="keyword"
         </div>
 
         <section id="exercicios">
-            <h2>15. Exercícios e Solucoes</h2>
+            <h2>15. Exercícios e Soluções</h2>
 
             <p class="destaque destaque-success">
                 Tente resolver sozinho antes de ver a solução! Clique em "Ver Solução" para conferir o código completo.
             </p>
 
+            <!-- ===================================================== -->
+
+            <!-- Aqui começa o Exercício Zero -->
+            <!-- ===================================================== -->
+            <!-- ===================================================== -->
+            <!-- PROJETO ESPECIAL: O "FIO DA MEADA" -->
+            <!-- ===================================================== -->
+
+            <section id="projeto-zero"
+                style="background: #fff; border: 4px solid #ffc107; border-radius: 2rem; padding: 2.5rem; margin: 3rem 0; box-shadow: 0 15px 0 #e0a800;">
+                <h2 style="border: none; padding: 0; margin-top: 0; color: #e0a800;">
+                    <div id="exercicios" class="part-header exercicios">Projeto Zero:
+                        Minha Primeira</a>
+                        Conversa com o Celular
+                </h2>
+                <p style="font-size: 1.4rem; font-weight: 500; color: #555; margin-bottom: 2rem;">
+                    <strong>Objetivo:</strong> Criar um app onde você digita seu nome, aperta um botão e o app te
+                    cumprimenta: "Olá, [Seu Nome]!".
+                </p>
+
+                <div class="destaque destaque-warning">
+                    <strong>Por que esse projeto?</strong><br>
+                    Ele ensina o ciclo de vida completo do React: <strong>Entrada de Dados</strong> (o que o usuário
+                    faz) → <strong>Memória</strong> (como o app lembra) → <strong>Saída Visual</strong> (como o app
+                    responde). Se você entender isso, você entende 80% do React.
+                </div>
+
+                <!-- PASSO 1: NODE JS -->
+                <h3 style="color: #1a2639; margin-top: 2rem;">Passo 1: Instalar Node.js</h3>
+                <p>O Node.js é o runtime JavaScript que executa nosso código. Baixe a versão LTS (Long Term Support) no
+                    site oficial.</p>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Windows - Instalação do Node.js</span>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>1.</strong> Acesse <a href="https://nodejs.org"
+                                target="_blank">https://nodejs.org</a></p>
+                        <p><strong>2.</strong> Baixe a versão LTS (v20.x ou superior)</p>
+                        <p><strong>3.</strong> Execute o instalador e siga as opções padrão</p>
+                        <p><strong>4.</strong> Verifique a instalação:</p>
+                        <div class="code-block code-terminal">
+                            node --version
+                            npm --version
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>macOS - Instalação do Node.js</span>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Opção 1 - Homebrew (recomendado):</strong></p>
+                        <div class="code-block code-terminal">
+                            # Instalar Node.js
+                            brew install node
+
+                            # Verificar
+                            node --version
+                        </div>
+                        <p><strong>Opção 2 - Instalador gráfico:</strong> Baixe em <a
+                                href="https://nodejs.org">nodejs.org</a></p>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Linux (Ubuntu/Debian) - Instalação do Node.js</span>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="code-block code-terminal">
+                            # Instalar Node.js via NodeSource (v20)
+                            curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+                            sudo apt install -y nodejs
+
+                            # Verificar instalação
+                            node --version
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PASSO 2: EXPO CLI -->
+                <h3 style="color: #1a2639; margin-top: 2rem;">Passo 2: Instalar Expo CLI</h3>
+                <p>O Expo é a forma mais rápida de começar com React Native. Ele elimina a necessidade de configurar
+                    Android Studio e Xcode no início.</p>
+
+                <div class="code-block code-terminal">
+                    # Instalar Expo CLI globalmente
+                    npm install -g expo-cli
+
+                    # Verificar instalação
+                    expo --version
+                </div>
+
+                <div class="tip-box">
+                    <span class="icon">💡</span>
+                    <div>
+                        <strong>Dica importante:</strong> Com o Expo, você pode testar seu app diretamente no celular
+                        usando o app <strong>Expo Go</strong> (disponível na App Store e Google Play). Basta escanear o
+                        QR Code que aparece no terminal.
+                    </div>
+                </div>
+
+                <!-- PASSO 3: EDITOR -->
+                <h3 style="color: #1a2639; margin-top: 2rem;">Passo 3: Configurar Editor de Código</h3>
+                <p>Recomendamos o <strong>VS Code</strong> com as seguintes extensões:</p>
+
+                <div class="cards-grid">
+                    <div class="info-card">
+                        <h4>ES7+ React/Redux/React-Native snippets</h4>
+                        <p>Snippets úteis como rnc (React Native Component), rnstyle (StyleSheet), etc.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>React Native Tools</h4>
+                        <p>Debugging e intellisense para React Native.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Prettier</h4>
+                        <p>Formatação automática de código.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>ESLint</h4>
+                        <p>Análise de código e detecção de erros.</p>
+                    </div>
+                </div>
+
+                <div class="destaque destaque-success">
+                    <strong>Ambiente pronto!</strong> Se você conseguiu instalar tudo acima, já pode começar a
+                    programar.
+                </div>
+
+                <!-- PASSO 4 -->
+                <h3 style="color: #1a2639; margin-top: 2rem;">Passo 1: Preparando a "Mesa de Trabalho"</h3>
+                <p>Antes de cozinhar, precisamos da cozinha. No mundo React, a "cozinha" é uma pasta no seu
+                    computador.</p>
+
+                <p><strong>O que fazer:</strong> Abra o terminal do seu computador (Prompt de Comando no Windows,
+                    Terminal no Mac/Linux).</p>
+
+                <p><strong>Ação 1: Escolha onde vai ficar o projeto.</strong> Digite o comando abaixo e aperte
+                    Enter. Isso cria uma pasta chamada <code>meus-estudos</code>.</p>
+                <div class="code-block code-terminal">
+                    mkdir meus-estudos
+                </div>
+                <p><small><em>Tradução: "mkdir" = Make Directory (Criar Diretório).</em></small></p>
+
+                <p><strong>Ação 2: Entre nessa pasta.</strong></p>
+                <div class="code-block code-terminal">
+                    cd meus-estudos
+                </div>
+                <p><small><em>Tradução: "cd" = Change Directory (Trocar de Diretório). Você agora está "dentro" da
+                            pasta.</em></small></p>
+
+                <!-- PASSO 5 -->
+                <h3 style="color: #1a2639; margin-top: 2rem;">Passo 2: Construindo o Esqueleto (O Comando Mágico)
+                </h3>
+                <p>Agora vamos pedir para a ferramenta Expo criar a estrutura inicial do app. É como pedir para uma
+                    empresa entregar a casa já com as paredes levantadas, sem móveis.</p>
+
+                <div class="code-block code-terminal">
+                    npx create-expo-app MinhaPrimeiraApp --template blank
+                </div>
+
+                <div class="tip-box">
+                    <span class="icon">🧙‍♂️</span>
+                    <div>
+                        <strong>O que esse comando faz?</strong><br>
+                        Ele baixa da internet um "kit pronto" com todos os arquivos necessários para um app React
+                        Native funcionar. O <code>--template blank</code> significa: "Quero a casa vazia, sem móveis
+                        (código extra)".
+                        <br><strong>Quando usar:</strong> Toda vez que for começar um projeto NOVO do zero.
+                    </div>
+                </div>
+
+                <p><strong>Ação 3: Entre na pasta do projeto.</strong></p>
+                <div class="code-block code-terminal">
+                    cd MinhaPrimeiraApp
+                </div>
+
+                <!-- PASSO 6 -->
+                <h3 style="color: #1a2639; margin-top: 2rem;">Passo 3: Abrindo o "Caderno" (VS Code)</h3>
+                <p>Agora vamos ver os arquivos. Se você tiver o Visual Studio Code instalado:</p>
+                <div class="code-block code-terminal">
+                    code .
+                </div>
+                <p><small>(Isso abre o editor na pasta atual. O ponto "." significa "aqui").</small></p>
+
+                <p>Você verá vários arquivos. O "coração" do app é o arquivo <code>App.js</code>. É ali que vamos
+                    escrever nosso código.</p>
+
+                <!-- PASSO 7 -->
+                <h3 style="color: #1a2639; margin-top: 2rem;">Passo 4: A Lógica (O Cérebro da Operação)</h3>
+                <p>Vamos apagar tudo que está no <code>App.js</code> e escrever do zero, linha por linha, entendendo
+                    o porquê.</p>
+
+                <p><strong>Linha 1: Importar as Ferramentas.</strong></p>
+                <div class="code-block" data-lang="JavaScript">
+                    <code><span class="keyword">import</span> React, { useState } <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> { View, Text, TextInput, TouchableOpacity, StyleSheet } <span class="keyword">from</span> <span class="string">'react-native'</span>;</code>
+                </div>
+
+                <div class="destaque destaque-info">
+                    <strong>Por que importar?</strong><br>
+                    Imagine que o React é uma caixa de ferramentas gigante guardada num depósito. O
+                    <code>import</code> é o ato de trazer as ferramentas que você vai usar para sua mesa.
+                    <ul>
+                        <li><code>React</code>: O cérebro que entende como criar componentes.</li>
+                        <li><code>useState</code>: A ferramenta de MEMÓRIA (a "caixinha" que vimos antes).</li>
+                        <li><code>View, Text...</code>: Os tijolos (componentes visuais).</li>
+                    </ul>
+                </div>
+
+                <p><strong>Linha 2: Criar o Componente Principal.</strong></p>
+                <div class="code-block" data-lang="JavaScript">
+                    <code><span class="keyword">export default function</span> <span class="function">App</span>() {
+  <span class="comment">// O código do nosso app vive aqui dentro</span>
+}</code>
+                </div>
+                <p><small>Todo app React precisa de um componente "Chefe", que chamamos de <code>App</code>. É a
+                        primeira coisa que o celular lê.</small></p>
+
+                <p><small>
+                        <!-- ===================================================== -->
+                        <!-- EXPLICAÇÃO DIDÁTICA: ANATOMIA DO APP -->
+                        <!-- ===================================================== -->
+                        <h3 style="color: #1a2639; margin-top: 2rem;">Anatomia do Componente Principal</h3>
+                        <p>Vamos desmontar essa linha pedaço por pedaço, como se estivéssemos desmontando um relógio
+                            para ver como ele funciona por dentro. Essa é a <strong>linha mais importante</strong> de
+                            todo o aplicativo.</p>
+                        <p>Pense nela como a <strong>porta de entrada</strong> da sua casa. É por aqui que o React
+                            Native "entra" para começar a construir seu app.</p>
+
+                        <!-- ANALOGIA DA FÁBRICA -->
+                        <div class="destaque destaque-info">
+                            <strong>A Analogia da Fábrica (Visão Geral)</strong><br>
+                            Imagine que você tem uma fábrica (seu arquivo <code>App.js</code>).
+                            <ul style="margin-top: 1rem; margin-bottom: 0;">
+                                <li><strong><code>function App()</code></strong>: É a <strong>máquina principal</strong>
+                                    dentro da fábrica. Ela faz o trabalho pesado.</li>
+                                <li><strong><code>export default</code></strong>: É a <strong>etiqueta de
+                                        entrega</strong> na porta da fábrica que diz: <em>"Quando alguém pedir o produto
+                                        principal desta fábrica, entregue esta máquina aqui"</em>. Sem isso, a fábrica
+                                    existe, mas ninguém consegue usar o que ela produz.</li>
+                            </ul>
+                        </div>
+
+                        <!-- DESMEMBRANDO: FUNCTION APP -->
+                        <h4>1. Desmembrando: <code>function App()</code></h4>
+                        <p>Aqui estamos criando o componente.</p>
+                        <ul>
+                            <li><strong><code>function</code></strong>: É a palavra-chave do JavaScript para criar uma
+                                função. Em React, <strong>componentes são funções</strong>. Simples assim. Não é mágica,
+                                é só uma função que retorna "desenhos" (JSX).</li>
+                            <li><strong><code>App</code></strong>: É o nome da função.
+                                <ul>
+                                    <li><strong>Regra de Ouro:</strong> Em React, nomes de componentes <strong>começam
+                                            sempre com letra maiúscula</strong> (<code>App</code>, <code>Perfil</code>,
+                                        <code>Cartao</code>).
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="warning-box">
+                            <span class="icon">⚠️</span>
+                            <div>
+                                <strong>Por que maiúscula?</strong><br>
+                                Para o React não confundir com as tags originais do HTML/Nativo (como <code>div</code>,
+                                <code>view</code>, <code>text</code>). <code>&lt;App /&gt;</code> é componente seu.
+                                <code>&lt;app /&gt;</code> seria tratado como uma tag comum (que não existe e daria
+                                erro).
+                            </div>
+                        </div>
+
+                        <p><strong><code>()</code></strong>: Os parênteses vazios significam que, por enquanto, esta
+                            função não recebe "matéria-prima" (props) de ninguém. Ela é o chefe máximo.</p>
+
+                        <!-- DESMEMBRANDO: EXPORT DEFAULT -->
+                        <h4>2. Desmembrando: <code>export default</code></h4>
+                        <p>Aqui tornamos o componente público para o mundo.</p>
+                        <ul>
+                            <li><strong><code>export</code></strong>: Significa "exportar". O React Native não lê apenas
+                                um arquivo. Ele lê vários. O <code>export</code> diz: "Torne esta <code>App</code>
+                                disponível para ser importada em outro arquivo".</li>
+                            <li><strong><code>default</code></strong>: Significa "padrão".
+                                <ul>
+                                    <li>Um arquivo pode ter várias coisas dentro (vários componentes, várias funções). O
+                                        <code>default</code> diz: <em>"Se alguém importar este arquivo sem especificar o
+                                            nome, dê a ele o <code>App</code>"</em>.
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <p>É por isso que no arquivo <code>index.js</code> (o ponto de entrada real do sistema) vemos
+                            algo como:</p>
+                        <div class="code-block" data-lang="JavaScript">
+                            <code><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span>; <span class="comment">// Não precisamos escrever { App }, pois ele é o default</span></code>
+                        </div>
+
+                        <!-- O QUE ACONTECE INVISIVELMENTE -->
+                        <h4>3. O Que Acontece "Invisivelmente"? (O Ciclo de Vida)</h4>
+                        <p>Quando você salva esse arquivo, o React Native faz o seguinte processo mental:</p>
+                        <ol>
+                            <li><strong>Leitura:</strong> O sistema lê o <code>index.js</code> do projeto.</li>
+                            <li><strong>Importação:</strong> O <code>index.js</code> diz: "Quero o default do arquivo
+                                <code>App.js</code>".
+                            </li>
+                            <li><strong>Execução:</strong> O React Native pega a função <code>App</code> que exportamos.
+                            </li>
+                            <li><strong>Chamada:</strong> O React Native <strong>chama</strong> essa função:
+                                <code>App()</code>.
+                                <ul>
+                                    <li><em>Note:</em> Você não escreve <code>App()</code> para rodar. O React escreve
+                                        para você.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Renderização:</strong> A função roda o que está dentro das chaves
+                                <code>{ ... }</code> e retorna a interface (JSX) para a tela do celular.
+                            </li>
+                        </ol>
+
+                        <!-- O ESQUELETO VAZIO -->
+                        <h4>4. O "Esqueleto Vazio" (O que falta aqui?)</h4>
+                        <p>Uma função componente em React tem uma regra sagrada: <strong>Ela precisa retornar algo
+                                visual</strong>.</p>
+                        <p>O código completo, didaticamente, seria assim:</p>
+                        <div class="code-block" data-lang="JavaScript">
+                            <code><span class="keyword">export default function</span> <span class="function">App</span>() {
+  <span class="comment">// 1. A LÓGICA (O Cérebro)</span>
+  <span class="comment">// Aqui vivem as variáveis, estados (useState) e funções.</span>
+  
+  <span class="comment">// 2. O RETORNO (O Visual)</span>
+  <span class="comment">// Obrigatório! O que a função devolve para a tela.</span>
+  <span class="keyword">return</span> (
+    &lt;<span class="function">View</span>&gt;
+      &lt;<span class="function">Text</span>&gt;Olá Mundo&lt;/<span class="function">Text</span>&gt;
+    &lt;/<span class="function">View</span>&gt;
+  );
+}</code>
+                        </div>
+
+                        <!-- RESUMO NÍVEL 5ª SÉRIE -->
+                        <div class="destaque destaque-success" style="margin-top: 2rem;">
+                            <h4 style="margin: 0 0 0.5rem 0; color: #155724;">Resumo "Nível 5ª Série"</h4>
+                            <ul style="margin-bottom: 0;">
+                                <li><strong><code>function App()</code></strong>: "Eu sou o chefe do aplicativo."</li>
+                                <li><strong><code>export default</code></strong>: "Eu sou o resultado principal que deve
+                                    ser entregue ao celular."</li>
+                                <li><strong><code>{ }</code></strong>: "Aqui dentro vou guardar minhas ideias (lógica) e
+                                    desenhar a tela (retorno)."</li>
+                            </ul>
+                        </div>
+
+                        <p>Sem o <code>export default</code>, seu arquivo seria uma caixa fechada. O celular saberia que
+                            o arquivo existe, mas <strong>não conseguiria abri-lo para mostrar na tela</strong>.</p>
+                    </small></p>
+
+                <p><strong>Linha 3: A Memória (O Segredo do React).</strong></p>
+                <div class="code-block" data-lang="JavaScript">
+                    <code><span class="keyword">const</span> [nome, setNome] = <span class="function">useState</span>(<span class="string">''</span>);</code>
+                </div>
+
+                <div class="warning-box">
+                    <span class="icon">🧠</span>
+                    <div>
+                        <strong>Atenção Profunda aqui!</strong><br>
+                        Aqui está o "fio da meada".
+                        <ul>
+                            <li><code>nome</code>: É a VARIÁVEL que guarda o valor atual. Começa vazia ('').
+                            </li>
+                            <li><code>setNome</code>: É a FUNÇÃO que usamos para mudar o valor.</li>
+                            <li><strong>Regra de Ouro:</strong> NUNCA tente mudar <code>nome</code> direto (ex:
+                                <code>nome = "João"</code>). O React não vai saber que mudou. Você PRECISA usar
+                                o
+                                <code>setNome("João")</code>. É como avisar o gerente da fábrica para atualizar
+                                o
+                                painel.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- PASSO 8 -->
+                <h3 style="color: #1a2639; margin-top: 2rem;">Passo 5: A Interface (O Visual)</h3>
+                <p>Agora vamos desenhar a tela. No React, desenhamos usando código, dentro do
+                    <code>return</code>.
+                </p>
+
+                <div class="code-block" data-lang="JavaScript">
+                    <code><span class="keyword">return</span> (
+  &lt;<span class="function">View</span> style={styles.container}&gt;
+    {/* 1. O Título */}
+    &lt;<span class="function">Text</span> style={styles.titulo}&gt;Quem é você?&lt;/<span class="function">Text</span>&gt;
+
+    {/* 2. O Campo de Digitação */}
+    &lt;<span class="function">TextInput</span>
+      style={styles.input}
+      placeholder=<span class="string">"Digite seu nome"</span>
+      value={nome}
+      onChangeText={<span class="keyword">function</span>(textoDigitado) { <span class="function">setNome</span>(textoDigitado) }}
+    /&gt;
+
+    {/* 3. A Saída (O Resultado) */}
+    &lt;<span class="function">Text</span> style={styles.saida}&gt;
+      {nome ? <span class="string">`Olá, ${nome}!`</span> : <span class="string">''</span>}
+    &lt;/<span class="function">Text</span>&gt;
+  &lt;/<span class="function">View</span>&gt;
+);</code>
+                </div>
+
+                <h4>Entendendo cada linha visual:</h4>
+                <ul>
+                    <li><code>&lt;View&gt;</code>: Nossa "caixa de papelão". Precisamos dela para guardar tudo.
+                    </li>
+                    <li><code>&lt;TextInput&gt;</code>: É onde o usuário digita.
+                        <ul>
+                            <li><code>value={nome}</code>: O React olha para a memória e mostra aqui.</li>
+                            <li><code>onChangeText={...}</code>: Aqui acontece a mágica. Toda vez que o usuário
+                                digita UMA letra, essa função dispara. Ela pega o texto e joga na memória via
+                                <code>setNome</code>. É um ciclo: <strong>Usuário digita → onChangeText dispara
+                                    →
+                                    setNome atualiza → Tela redesenha</strong>.
+                            </li>
+                        </ul>
+                    </li>
+                    <li><code>{nome ? `Olá...` : ''}</code>: Isso é uma condição. Se tiver nome na memória,
+                        mostra
+                        "Olá...". Se não, mostra vazio.</li>
+                </ul>
+
+                <!-- PASSO 9 -->
+                <h3 style="color: #1a2639; margin-top: 2rem;">Passo 6: A Maquiagem (Estilos)</h3>
+                <p>O app precisa ser bonito. O React Native usa CSS adaptado. No final do arquivo, antes da
+                    última
+                    linha, coloque isso:</p>
+
+                <div class="code-block" data-lang="JavaScript">
+                    <code><span class="keyword">const</span> styles = StyleSheet.<span class="function">create</span>({
+  container: {
+    flex: <span class="number">1</span>,
+    justifyContent: <span class="string">'center'</span>,
+    alignItens: <span class="string">'center'</span>,
+    padding: <span class="number">20</span>,
+  },
+  titulo: {
+    fontSize: <span class="number">24</span>,
+    marginBottom: <span class="number">20</span>,
+    fontWeight: <span class="string">'bold'</span>,
+  },
+  input: {
+    width: <span class="string">'100%'</span>,
+    height: <span class="number">50</span>,
+    borderColor: <span class="string">'#ccc'</span>,
+    borderWidth: <span class="number">1</span>,
+    paddingHorizontal: <span class="number">10</span>,
+    borderRadius: <span class="number">8</span>,
+    marginBottom: <span class="number">20</span>,
+  },
+  saida: {
+    fontSize: <span class="number">20</span>,
+    color: <span class="string">'#28a745'</span>,
+    fontWeight: <span class="string">'bold'</span>,
+  },
+});</code>
+                </div>
+
+                <!-- PASSO 10 -->
+                <h3 style="color: #1a2639; margin-top: 2rem;">Passo 7: Dar Vida ao App</h3>
+                <p>O código está pronto. Agora vamos ver funcionar.</p>
+
+                <p><strong>1.</strong> Certifique-se de que salvou o arquivo (<code>Ctrl + S</code> ou
+                    <code>Cmd + S</code>).
+                </p>
+                <p><strong>2.</strong> No terminal (que está na pasta do projeto), digite:</p>
+                <div class="code-block code-terminal">
+                    npx expo start
+                </div>
+
+                <p><strong>3.</strong> Um QR Code vai aparecer.</p>
+                <ul>
+                    <li>Pegue seu celular, abra o app <strong>Expo Go</strong>.</li>
+                    <li>Escaneie o QR Code.</li>
+                </ul>
+
+                <div class="destaque destaque-success" style="margin-top: 2rem;">
+                    <h4 style="margin: 0 0 0.5rem 0; color: #155724;">🏆 O Que Você Aprendeu Aqui?</h4>
+                    <p>Você não apenas copiou código. Você aprendeu o fluxo:</p>
+                    <ol style="margin-bottom: 0;">
+                        <li><strong>Importar</strong>: Traz as ferramentas.</li>
+                        <li><strong>Estado (useState)</strong>: Cria a memória.</li>
+                        <li><strong>JSX (Return)</strong>: Desenha a tela baseada na memória.</li>
+                        <li><strong>Eventos (onChangeText)</strong>: Atualiza a memória quando o usuário age.
+                        </li>
+                    </ol>
+                    <p style="margin-top: 1rem; margin-bottom: 0;"><strong>Esse é o ciclo eterno do
+                            React.</strong>
+                        Se você travar em um projeto gigante no futuro, volte a esse passo a passo. Todo app
+                        complexo é só uma versão maior dessa conversa simples.</p>
+                </div>
+
+            </section>
+
+            <!-- ===================================================== -->
+            <!-- Fim do Exercício Zero -->
+            <!-- ===================================================== -->
+
             <!-- NIVEL INICIANTE -->
-            <h3 style="color: #28a745; border-bottom: 3px solid #28a745; padding-bottom: 0.5rem;">Nivel Iniciante</h3>
+            <h3 style="color: #28a745; border-bottom: 3px solid #28a745; padding-bottom: 0.5rem;">Nivel
+                Iniciante
+            </h3>
 
             <!-- EXERCICIO 1 -->
             <div class="exercise-card" data-number="1">
@@ -2560,9 +3078,15 @@ api.interceptors.request.<span class="function">use</span>(<span class="keyword"
                 <div class="tip-box">
                     <span class="icon">🎓</span>
                     <div>
-                        <strong>Lógica Envolvida (Nível 5ª Série):</strong> Aqui treinamos o <code>useState</code> e a
-                        <strong>condição lógica</strong>. O contador é o nosso placar. Antes de apertar o botão de "+1",
-                        o juiz (nossa função) precisa verificar se o placar já não está no máximo. Se estiver, ele apita
+                        <strong>Lógica Envolvida (Nível 5ª Série):</strong> Aqui treinamos o
+                        <code>useState</code> e
+                        a
+                        <strong>condição lógica</strong>. O contador é o nosso placar. Antes de apertar o botão
+                        de
+                        "+1",
+                        o juiz (nossa função) precisa verificar se o placar já não está no máximo. Se estiver,
+                        ele
+                        apita
                         (mostra um Alert) e não deixa passar.
                     </div>
                 </div>
@@ -2659,9 +3183,11 @@ api.interceptors.request.<span class="function">use</span>(<span class="keyword"
                 <div class="tip-box">
                     <span class="icon">🎓</span>
                     <div>
-                        <strong>Lógica Envolvida:</strong> O segredo aqui é a <strong>imutabilidade</strong>. No React,
+                        <strong>Lógica Envolvida:</strong> O segredo aqui é a <strong>imutabilidade</strong>. No
+                        React,
                         não alteramos o array original (não usamos <code>push</code>). Criamos um <strong>novo
-                            array</strong> com o novo item dentro (<code>[...tarefas, nova]</code>). Para remover,
+                            array</strong> com o novo item dentro (<code>[...tarefas, nova]</code>). Para
+                        remover,
                         usamos <code>filter</code> que cria uma cópia sem o item indesejado.
                     </div>
                 </div>
@@ -2738,7 +3264,8 @@ api.interceptors.request.<span class="function">use</span>(<span class="keyword"
             <hr>
 
             <!-- NIVEL INTERMEDIARIO -->
-            <h3 style="color: #ffc107; border-bottom: 3px solid #ffc107; padding-bottom: 0.5rem;">Nivel Intermediario
+            <h3 style="color: #ffc107; border-bottom: 3px solid #ffc107; padding-bottom: 0.5rem;">Nivel
+                Intermediario
             </h3>
 
             <!-- EXERCICIO 3 -->
@@ -2758,8 +3285,10 @@ api.interceptors.request.<span class="function">use</span>(<span class="keyword"
                 <div class="tip-box">
                     <span class="icon">🎓</span>
                     <div>
-                        <strong>Lógica Envolvida:</strong> Uso combinado de <code>useState</code> (para dados, loading,
-                        erro) e <code>useEffect</code> (para disparar a busca na montagem). Introduz o conceito de
+                        <strong>Lógica Envolvida:</strong> Uso combinado de <code>useState</code> (para dados,
+                        loading,
+                        erro) e <code>useEffect</code> (para disparar a busca na montagem). Introduz o conceito
+                        de
                         <strong>assincronismo</strong> (async/await) e tratamento de erros (try/catch).
                     </div>
                 </div>
@@ -2931,7 +3460,8 @@ api.interceptors.request.<span class="function">use</span>(<span class="keyword"
             <hr>
 
             <!-- NIVEL AVANCADO -->
-            <h3 style="color: #dc3545; border-bottom: 3px solid #dc3545; padding-bottom: 0.5rem;">Nivel Avançado</h3>
+            <h3 style="color: #dc3545; border-bottom: 3px solid #dc3545; padding-bottom: 0.5rem;">Nivel Avançado
+            </h3>
 
             <!-- EXERCICIO 6 -->
             <div class="exercise-card" data-number="6">
@@ -2948,8 +3478,10 @@ api.interceptors.request.<span class="function">use</span>(<span class="keyword"
                 <div class="tip-box">
                     <span class="icon">🎓</span>
                     <div>
-                        <strong>Conceito Avançado:</strong> Extraímos a lógica de busca para uma função própria (Hook).
-                        Isso é <strong>composição</strong>. O hook gerencia seu próprio estado interno e retorna apenas
+                        <strong>Conceito Avançado:</strong> Extraímos a lógica de busca para uma função própria
+                        (Hook).
+                        Isso é <strong>composição</strong>. O hook gerencia seu próprio estado interno e retorna
+                        apenas
                         o necessário para o componente consumidor.
                     </div>
                 </div>
